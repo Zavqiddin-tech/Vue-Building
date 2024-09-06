@@ -4,6 +4,7 @@ import { useApiStore } from "@/stores/api/api";
 
 export const useWorkersStore = defineStore("workers", () => {
   const workers = ref([]);
+  const workersResult = ref(0)
 
   const api = useApiStore();
 
@@ -15,6 +16,18 @@ export const useWorkersStore = defineStore("workers", () => {
       })
       .then((res) => {
         workers.value = [...res.data];
+      });
+  };
+
+  // natijani olish
+  const get_worker_result = async () => {
+    console.log('get get');
+    await api
+      .getAxios({
+        url: "workers/result",
+      })
+      .then((res) => {
+        workersResult.value = res.data
       });
   };
 
@@ -72,7 +85,9 @@ export const useWorkersStore = defineStore("workers", () => {
  
   return {
     workers,
+    workersResult,
     get_all_workers,
+    get_worker_result,
     get_worker,
     new_worker,
     update_worker,

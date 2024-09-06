@@ -1,9 +1,11 @@
 import { ref } from "vue";
 import { defineStore } from "pinia";
 import { useApiStore } from "@/stores/api/api";
+import { data } from "autoprefixer";
 
 export const useKatlavanStore = defineStore("katlavan", () => {
   const katlavan = ref([]);
+  const katlavanResult = ref(0)
 
   const api = useApiStore();
 
@@ -16,6 +18,19 @@ export const useKatlavanStore = defineStore("katlavan", () => {
       .then((res) => {
         console.log(res.data);
         katlavan.value = [...res.data.allKatlavan];
+      });
+  };
+
+  // natijani olish
+  const get_katlavan_result = async () => {
+    console.log('get get');
+    await api
+      .getAxios({
+        url: "katlavan/result",
+      })
+      .then((res) => {
+        console.log(res.data);
+        katlavanResult.value = res.data
       });
   };
 
@@ -74,7 +89,9 @@ export const useKatlavanStore = defineStore("katlavan", () => {
  
   return {
     katlavan,
+    katlavanResult,
     get_all_katlavan,
+    get_katlavan_result,
     get_katlavan,
     new_katlavan,
     update_katlavan,

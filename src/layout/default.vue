@@ -6,16 +6,15 @@ import Sidebar from "@/components/layout/sidebar.vue";
 <template>
   <div class="bg-[#F7F9FC]">
     <div class="max-w-[1920px] m-auto flex">
-      <div class="w-[330px] h-screen p-5 sticky top-0">
+      <div class="w-[330px] h-screen p-5 sticky top-0 overflow-hidden">
         <Sidebar />
       </div>
-      <div class="route p-10 w-full ">
+      <div class="route p-5 w-full">
         <RouterView />
       </div>
     </div>
   </div>
 </template>
-
 
 <style>
 .route {

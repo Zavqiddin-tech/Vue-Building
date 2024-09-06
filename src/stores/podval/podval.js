@@ -4,6 +4,7 @@ import { useApiStore } from "@/stores/api/api";
 
 export const usePodvalStore = defineStore("podval", () => {
   const podval = ref([]);
+  const podvalResult = ref(0)
 
   const api = useApiStore();
 
@@ -18,6 +19,19 @@ export const usePodvalStore = defineStore("podval", () => {
         podval.value = [...res.data];
       });
   };
+
+    // natijani olish
+    const get_podval_result = async () => {
+      console.log('get get');
+      await api
+        .getAxios({
+          url: "podval/result",
+        })
+        .then((res) => {
+          console.log(res.data);
+          podvalResult.value = res.data
+        });
+    };
 
   // Yangi ishchi qo'shish
   const new_podval = async (data) => {
@@ -72,7 +86,9 @@ export const usePodvalStore = defineStore("podval", () => {
  
   return {
     podval,
+    podvalResult,
     get_all_podval,
+    get_podval_result,
     get_podval,
     new_podval,
     update_podval,

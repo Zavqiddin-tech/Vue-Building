@@ -4,6 +4,7 @@ import { useApiStore } from "@/stores/api/api";
 
 export const useInvestStore = defineStore("invest", () => {
   const invest = ref([]);
+  const investResult = ref(0)
 
   const api = useApiStore();
 
@@ -18,6 +19,19 @@ export const useInvestStore = defineStore("invest", () => {
         invest.value = [...res.data];
       });
   };
+
+    // natijani olish
+    const get_invest_result = async () => {
+      console.log('get get');
+      await api
+        .getAxios({
+          url: "invest/result",
+        })
+        .then((res) => {
+          console.log(res.data);
+          investResult.value = res.data
+        });
+    };
 
   // Yangi ishchi qo'shish
   const new_invest = async (data) => {
@@ -72,7 +86,9 @@ export const useInvestStore = defineStore("invest", () => {
  
   return {
     invest,
+    investResult,
     get_all_invest,
+    get_invest_result,
     get_invest,
     new_invest,
     update_invest,

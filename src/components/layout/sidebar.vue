@@ -1,13 +1,13 @@
 <template>
   <div class="sidebar pt-8 h-full rounded-xl bg-white">
-    <div class="pb-5 text-2xl text-center font-extrabold border-b">ZAVQI UI</div>
-    <ul class="mt-10 ml-10 flex flex-col gap-5">
+    <div class="pb-5 text-2xl text-center font-extrabold border-b"> <i class="fa-solid fa-hashtag"></i> ZAVQI UI</div>
+    <ul class="mt-10 ml-10 flex flex-col gap-6">
       <li v-for="(route, index) in routes" :key="index">
         <router-link
           :to="route.path"
           :class="{ active: isActiveRoute(route.path) }"
         >
-          <div class="flex items-center gap-4">
+          <div class="flex items-center gap-3">
             <i :class="`${route.icon} text-[22px]`"></i>
             <span class="text-[18px]">{{ route.name }}</span>
           </div>
@@ -26,8 +26,8 @@ const routes = [
   { name: "Sarmoya", path: "/invest", icon: "fa-solid fa-chart-simple" },
   { name: "Ishchilar", path: "/workers", icon: "fa-solid fa-user" },
   { name: "Oylish maosh", path: "/salary", icon: "fa-solid fa-sack-dollar" },
-  { name: "Katlavan", path: "/katlavan", icon: "fa-solid fa-trowel-bricks" },
-  { name: "Podval", path: "/podval", icon: "fa-solid fa-person-digging" },
+  { name: "Katlavan", path: "/katlavan", icon: "fa-solid fa-layer-group" },
+  { name: "Podval", path: "/podval", icon: "fa-solid fa-store" },
   { name: "Sign in", path: "/signin", icon: "fa-solid fa-lock" },
   // Qo'shimcha marshrutlar qo'shishingiz mumkin
 ];
@@ -43,12 +43,19 @@ const isActiveRoute = (path) => {
 
 <style scoped>
 .sidebar ul {
+  height: 100%;
+  position: relative;
   list-style-type: none;
   padding: 0;
+  
 }
 
 .sidebar ul li {
   color: #7a7f90;
+  &:last-child {
+    position: absolute;
+    bottom: 120px;
+  }
 }
 
 .sidebar ul li .active {
