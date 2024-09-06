@@ -16,6 +16,8 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useToast } from "@/components/ui/toast/use-toast";
+const { toast } = useToast();
 const toggle = ref(false)
 const setToggle = (val) => toggle.value = val
 const add = () => {
@@ -23,7 +25,12 @@ const add = () => {
 		new_worker(state.value)
 		state.value = {}
 		setToggle(false)
-	}
+	} else {
+    toast({
+      title: "E'tibor bering",
+      description: "Barcha maydon to'ldirilishi shart !",
+    });
+  }
 }
 </script>
 
@@ -34,9 +41,9 @@ const add = () => {
     </DialogTrigger>
     <DialogContent class="sm:max-w-[425px]">
       <DialogHeader>
-        <DialogTitle>Edit profile</DialogTitle>
-        <DialogDescription>
-          Make changes to your profile here. Click save when you're done.
+        <DialogTitle>Ishchini kiriting</DialogTitle>
+        <DialogDescription class="pt-3 text-red-400">
+          Ma'lumotlarni to'g'ri kiriting !
         </DialogDescription>
       </DialogHeader>
       <div class="grid gap-4 py-4">

@@ -56,7 +56,7 @@ onMounted(() => {
           <TableCell class="font-medium capitalize">
             {{ item.title }}
           </TableCell>
-          <TableCell>{{ item.price }}</TableCell>
+          <TableCell>{{ item.price.toLocaleString() }}</TableCell>
           <TableCell>{{ convertDate(item.createAt) }}</TableCell>
           <TableCell>{{ item.createdBy.userName }}</TableCell>
           <TableCell>

@@ -4,9 +4,11 @@ import { storeToRefs } from "pinia";
 import { convertDate } from "@/func/date";
 
 // store
-import { useKatlavanStore } from "@/stores/katlavan/katlavan";
-const { katlavan } = storeToRefs(useKatlavanStore());
-const { get_all_katlavan } = useKatlavanStore();
+import { useSalaryStore } from "@/stores/salary/salary";
+const { salary } = storeToRefs(useSalaryStore());
+const { get_all_salary } = useSalaryStore();
+import { useModalStore } from '@/stores/modal';
+const {setModal, setUpdateModal, setNowId} = useModalStore()
 
 //shadcn
 import {
@@ -18,46 +20,42 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { Button } from "../ui/button";
+
+const edit = async (id) => {
+  setModal(true)
+  setUpdateModal(true)
+  setNowId(id)
+}
 
 onMounted(() => {
-  get_all_katlavan();
+  get_all_salary();
 });
 </script>
 
 <template>
   <div>
-    <Table v-if="Array.isArray(katlavan) && katlavan.length > 0">
-      <TableCaption>katlavan xarajatlari</TableCaption>
+    <Table v-if="Array.isArray(salary) && salary.length > 0">
+      <TableCaption>Salary xarajatlari</TableCaption>
       <TableHeader>
         <TableRow>
-          <TableHead class="text-[16px]">Nomi</TableHead>
+          <TableHead class="text-[16px]">Ismi</TableHead>
           <TableHead class="text-[16px]">Miqdori</TableHead>
+          <TableHead class="text-[16px]">Qaysi oy uchun</TableHead>
           <TableHead class="text-[16px]">Kiritildi</TableHead>
           <TableHead class="text-[16px]">Author</TableHead>
-          <TableHead class="text-[16px]">Batafsil</TableHead>
           <TableHead class="text-[16px] text-right"> edit </TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
-        <TableRow v-for="item in katlavan" class="hover:bg-black/10">
+        <TableRow v-for="item in salary" class="hover:bg-black/10">
           <TableCell class="font-medium capitalize">
-            {{ item.title }}
+            {{ item.worker.fName }} {{ item.worker.lName }}
           </TableCell>
-          <TableCell>{{ item.price.toLocaleString() }}</TableCell>
-          <TableCell>{{ convertDate(item.createAt) }}</TableCell>
+          <TableCell>{{ item.amount.toLocaleString() }}</TableCell>
+          <TableCell>{{ item.paymentForMonth }}</TableCell>
+          <TableCell>{{ convertDate(item.createAt, 1) }}</TableCell>
           <TableCell>{{ item.createdBy.userName }}</TableCell>
-          <TableCell>
-            <Popover>
-              <PopoverTrigger class=" p-2 bg-green-500 text-white rounded-lg shadow"> shu yerda</PopoverTrigger>
-              <PopoverContent> {{ item.detail }} </PopoverContent>
-            </Popover>
-          </TableCell>
+          
           <TableCell class="float-right">
             <div class="flex items-start gap-3">
               <div

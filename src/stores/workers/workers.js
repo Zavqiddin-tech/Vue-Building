@@ -14,7 +14,6 @@ export const useWorkersStore = defineStore("workers", () => {
         url: "workers/all",
       })
       .then((res) => {
-        console.log(res.data);
         workers.value = [...res.data];
       });
   };

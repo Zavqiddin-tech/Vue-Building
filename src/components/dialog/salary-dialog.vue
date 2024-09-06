@@ -1,8 +1,8 @@
 <script setup>
 import { ref, watch, onMounted } from "vue";
 import { storeToRefs } from "pinia";
-import { usePodvalStore } from "@/stores/podval/podval";
-const { new_podval, update_podval, get_podval } = usePodvalStore();
+import { useSalaryStore } from "@/stores/salary/salary";
+const { new_salary, update_salary, get_salary } = useSalaryStore();
 
 import { useWorkersStore } from "@/stores/workers/workers";
 const { workers } = storeToRefs(useWorkersStore());
@@ -13,6 +13,7 @@ const { modal, updateModal, nowId } = storeToRefs(useModalStore());
 const { setModal, setUpdateModal, setNowId } = useModalStore();
 
 const state = ref({});
+const calendar = ref({})
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -39,12 +40,15 @@ import { useToast } from "@/components/ui/toast/use-toast";
 const { toast } = useToast();
 
 const add = () => {
-  if (state.value.title && state.value.price && state.value.detail) {
+  const newDate = `${calendar.value.date.month <= 9 ? '0' + calendar.value.date.month : calendar.value.date.month}-${calendar.value.date.year}`
+  console.log(calendar);
+  console.log(newDate);
+  if (state.value.worker && state.value.amount && newDate) {
     if (updateModal.value) {
-      update_podval(state.value);
+      update_salary({...state.value, paymentForMonth: newDate});
       handleClose();
     } else {
-      new_podval(state.value);
+      new_salary({...state.value, paymentForMonth: newDate});
       handleClose();
     }
   } else {
@@ -70,18 +74,13 @@ const onClose = (isOpen) => {
 
 watch(updateModal, async () => {
   if (updateModal.value) {
-    const res = await get_podval(nowId.value);
+    const res = await get_salary(nowId.value);
     if (res.status == 200) {
       state.value = res.data;
     }
   }
 });
 
-const test = () => {
-  const newDate = `${state.value.paymentForMonth.month <= 9 ? '0' + state.value.paymentForMonth.month : state.value.paymentForMonth.month}-${state.value.paymentForMonth.year}`
-  state.value = {...state.value}
-  console.log(state.value);
-}
 
 onMounted(() => {
   get_all_workers();
@@ -99,8 +98,8 @@ onMounted(() => {
           Maoshni berish
           <span v-show="updateModal">yangilash</span></DialogTitle
         >
-        <DialogDescription>
-          ma'lumotlarni kiritishda e'tiborli bo'ling !
+        <DialogDescription class="pt-3 text-red-400">
+          Ma'lumotlarni to'g'ri kiriting !
         </DialogDescription>
       </DialogHeader>
       <div>
@@ -125,14 +124,14 @@ onMounted(() => {
         </div>
         <div class="mb-4">
           <Calendar
-            v-model="state.paymentForMonth"
+            v-model="calendar.date"
             :weekday-format="'short'"
             class="rounded-md border"
           />
         </div>
       </div>
       <DialogFooter>
-        <Button @click="test()" class="bg-[#603cff] hover:bg-[#603cffbe]">
+        <Button @click="add()" class="bg-[#603cff] hover:bg-[#603cffbe]">
           Save changes
         </Button>
       </DialogFooter>

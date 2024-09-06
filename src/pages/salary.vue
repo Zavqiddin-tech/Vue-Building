@@ -1,6 +1,7 @@
 <script setup>
 
 import salaryDialog from '@/components/dialog/salary-dialog.vue';
+import salaryTable from '@/components/table/salary-table.vue';
 
 // shadcn 
 import Button from '@/components/ui/button/Button.vue';
@@ -13,4 +14,5 @@ import Button from '@/components/ui/button/Button.vue';
       <salaryDialog />
     </div>
   </div>
+  <salaryTable />
 </template>

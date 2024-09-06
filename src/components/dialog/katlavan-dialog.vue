@@ -43,8 +43,8 @@ const add = () => {
     <DialogContent class="sm:max-w-[425px]">
       <DialogHeader>
         <DialogTitle>Katlavan rasxodlar</DialogTitle>
-        <DialogDescription>
-          ma'lumotlarni kiritishda e'tiborli bo'ling !
+        <DialogDescription class="pt-3 text-red-400">
+          Ma'lumotlarni to'g'ri kiriting !
         </DialogDescription>
       </DialogHeader>
       <div>

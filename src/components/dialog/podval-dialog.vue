@@ -78,8 +78,8 @@ watch(updateModal, async () => {
           Podval rasxodlar
           <span v-show="updateModal">yangilash</span></DialogTitle
         >
-        <DialogDescription>
-          ma'lumotlarni kiritishda e'tiborli bo'ling !
+        <DialogDescription class="pt-3 text-red-400">
+          Ma'lumotlarni to'g'ri kiriting !
         </DialogDescription>
       </DialogHeader>
       <div>
