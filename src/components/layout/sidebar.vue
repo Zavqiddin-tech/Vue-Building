@@ -27,7 +27,7 @@ const routes = [
   { name: "Ishchilar", path: "/workers", icon: "fa-solid fa-user" },
   { name: "Oylish maosh", path: "/salary", icon: "fa-solid fa-sack-dollar" },
   { name: "Katlavan", path: "/katlavan", icon: "fa-solid fa-trowel-bricks" },
-  { name: "Podval", path: "/basement", icon: "fa-solid fa-person-digging" },
+  { name: "Podval", path: "/podval", icon: "fa-solid fa-person-digging" },
   { name: "Sign in", path: "/signin", icon: "fa-solid fa-lock" },
   // Qo'shimcha marshrutlar qo'shishingiz mumkin
 ];

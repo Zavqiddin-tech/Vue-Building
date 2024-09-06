@@ -11,9 +11,10 @@ export const useWorkersStore = defineStore("workers", () => {
   const get_all_workers = async () => {
     await api
       .getAxios({
-        url: "workers",
+        url: "workers/all",
       })
       .then((res) => {
+        console.log(res.data);
         workers.value = [...res.data];
       });
   };
@@ -21,12 +22,12 @@ export const useWorkersStore = defineStore("workers", () => {
   // Yangi ishchi qo'shish
   const new_worker = async (data) => {
     await api
-      .postAxiosFile({
-        url: "workers",
+      .postAxios({
+        url: "workers/create",
         data,
       })
       .then((res) => {
-        workers.value = [res.data, ...workers.value];
+        workers.value = [...res.data];
       });
   };
 

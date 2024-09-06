@@ -62,7 +62,7 @@ const onSubmit = form.handleSubmit((values) => {
 <template>
   <div class="flex items-center justify-between">
     <div class="text-xl font-semibold">Adminlar ro'yxati</div>
-    <div><Button @click="setSheetToggle(true)">qo'shish</Button></div>
+    <div><Button @click="setSheetToggle(true)" class="bg-[#603cff] hover:bg-[#603cffbe]">qo'shish</Button></div>
   </div>
   <signInTable />
 
@@ -148,7 +148,7 @@ const onSubmit = form.handleSubmit((values) => {
                 <FormMessage />
               </FormItem>
             </FormField>
-            <Button type="submit" class="mt-5 bg-green-500"> Submit </Button>
+            <Button type="submit" class="bg-[#603cff] hover:bg-[#603cffbe]"> Submit </Button>
           </form>
         </SheetDescription>
       </SheetHeader>

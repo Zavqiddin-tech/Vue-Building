@@ -35,8 +35,8 @@ const router = createRouter({
           meta: {secure: true}
         },
         {
-          path: '/basement',
-          component: ()=> import('@/pages/katlavan.vue'),
+          path: '/podval',
+          component: ()=> import('@/pages/podval.vue'),
           meta: {secure: true}
         },
         {
