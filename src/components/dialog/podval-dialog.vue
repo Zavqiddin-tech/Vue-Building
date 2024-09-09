@@ -27,7 +27,7 @@ const { toast } = useToast()
 
 
 const add = () => {
-	if(state.value.title && state.value.price && state.value.detail) {
+	if(state.value.title && state.value.price) {
     if (updateModal.value) {
       update_podval(state.value)
       handleClose()
@@ -63,7 +63,6 @@ watch(updateModal, async () => {
       state.value = res.data
     }
   }
-
 })
 </script>
 

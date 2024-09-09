@@ -1,7 +1,14 @@
 <script setup>
-import { ref } from "vue";
+import { ref, watch } from "vue";
+import { storeToRefs } from "pinia";
+
+
+//store
+import { useModalStore } from '@/stores/modal';
+const {modal, updateModal, nowId} = storeToRefs(useModalStore())
+const {setModal, setUpdateModal, setNowId} = useModalStore()
 import { useKatlavanStore } from "@/stores/katlavan/katlavan";
-const { new_katlavan } = useKatlavanStore();
+const { new_katlavan, update_katlavan, get_katlavan } = useKatlavanStore();
 
 const state = ref({});
 import { Button } from "@/components/ui/button";
@@ -19,24 +26,48 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/toast/use-toast";
 const { toast } = useToast();
-const toggle = ref(false);
-const setToggle = (val) => (toggle.value = val);
 const add = () => {
-  if (state.value.title && state.value.price && state.value.detail) {
-    new_katlavan(state.value);
-    state.value = {};
-    setToggle(false);
-  } else {
-    toast({
-      title: "E'tibor bering",
-      description: "Barcha maydon to'ldirilishi shart !",
-    });
+	if(state.value.title && state.value.price) {
+    if (updateModal.value) {
+      update_katlavan(state.value)
+      handleClose()
+    } else {
+      new_katlavan(state.value)
+      handleClose()
+    }
+	} else {
+		toast({
+        title: "E'tibor bering",
+        description: "Barcha maydon to'ldirilishi shart !",
+      });
+	}
+}
+
+const handleClose = () => {
+  state.value = {}
+    setModal(false)
+    setUpdateModal(false)
+    setNowId('')
+}
+
+const onClose = (isOpen)=> {
+  if (isOpen == false) {
+    handleClose()
   }
-};
+}
+
+watch(updateModal, async () => {
+  if (updateModal.value) {
+    const res = await get_katlavan(nowId.value)
+    if(res.status == 200) {
+      state.value = res.data
+    }
+  }
+})
 </script>
 
 <template>
-  <Dialog v-model:open="toggle">
+  <Dialog v-model:open="modal" @update:open="onClose">
     <DialogTrigger as-child>
       <Button class="bg-[#603cff] hover:bg-[#603cffbe]">Chiqim</Button>
     </DialogTrigger>

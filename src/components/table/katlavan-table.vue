@@ -4,9 +4,11 @@ import { storeToRefs } from "pinia";
 import { convertDate } from "@/func/date";
 
 // store
+import { useModalStore } from '@/stores/modal';
+const {setModal, setUpdateModal, setNowId} = useModalStore()
 import { useKatlavanStore } from "@/stores/katlavan/katlavan";
 const { katlavan } = storeToRefs(useKatlavanStore());
-const { get_all_katlavan } = useKatlavanStore();
+const { get_all_katlavan, delete_katlavan } = useKatlavanStore();
 
 //shadcn
 import {
@@ -23,7 +25,20 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Button } from "../ui/button";
+
+
+
+const edit = async (id) => {
+  setModal(true)
+  setUpdateModal(true)
+  setNowId(id)
+}
+
+const del = (id) => {
+  if(confirm("O'chirasizmi")) {
+    delete_katlavan(id)
+  }
+}
 
 onMounted(() => {
   get_all_katlavan();

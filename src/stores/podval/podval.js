@@ -71,14 +71,10 @@ export const usePodvalStore = defineStore("podval", () => {
   const delete_podval = async (_id) => {
     await api
       .deleteAxios({
-        url: `podval/${_id}`
+        url: `podval/delete/${_id}`
       })
-      .then(() => {
-        podval.value = podval.value.filter((item) => {
-          if (item._id == _id) return false;
-          return item;
-        });
-        podval.value = [...podval.value];
+      .then((res) => {
+        podval.value = [...res.data];
       });
   };
 

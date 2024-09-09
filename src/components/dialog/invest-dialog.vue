@@ -1,7 +1,7 @@
 <script setup>
 import {ref, watch} from 'vue'
 import { useInvestStore } from '@/stores/invest/invest';
-const {new_invest, update_invest} = useInvestStore()
+const {new_invest, get_invest, update_invest} = useInvestStore()
 
 import { useModalStore } from '@/stores/modal';
 const {modal, updateModal, nowId} = storeToRefs(useModalStore())
@@ -66,7 +66,7 @@ const onClose = (isOpen)=> {
 
 watch(updateModal, async () => {
   if (updateModal.value) {
-    const res = await get_podval(nowId.value)
+    const res = await get_invest(nowId.value)
     if(res.status == 200) {
       state.value = res.data
     }

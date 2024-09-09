@@ -61,24 +61,18 @@ export const useInvestStore = defineStore("invest", () => {
         data,
       })
       .then((res) => {
-        console.log(res.data);
-        
         invest.value = [...res.data];
       });
   };
 
   // Ishchini o'chirish
-  const delete_invest = async (_id) => {
+  const delete_invest = async (id) => {
     await api
       .deleteAxios({
-        url: `invest/${_id}`
+        url: `invest/delete/${id}`
       })
-      .then(() => {
-        invest.value = invest.value.filter((item) => {
-          if (item._id == _id) return false;
-          return item;
-        });
-        invest.value = [...invest.value];
+      .then((res) => {
+        invest.value = [...res.data];
       });
   };
 

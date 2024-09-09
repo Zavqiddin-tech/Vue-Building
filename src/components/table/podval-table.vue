@@ -6,7 +6,7 @@ import { convertDate } from "@/func/date";
 // store
 import { usePodvalStore } from "@/stores/podval/podval";
 const { podval } = storeToRefs(usePodvalStore());
-const { get_all_podval, get_podval } = usePodvalStore();
+const { get_all_podval, delete_podval } = usePodvalStore();
 import { useModalStore } from '@/stores/modal';
 const {setModal, setUpdateModal, setNowId} = useModalStore()
 
@@ -30,6 +30,12 @@ const edit = async (id) => {
   setModal(true)
   setUpdateModal(true)
   setNowId(id)
+}
+
+const del = (id) => {
+  if(confirm("O'chirasizmi")) {
+    delete_podval(id)
+  }
 }
 
 onMounted(() => {

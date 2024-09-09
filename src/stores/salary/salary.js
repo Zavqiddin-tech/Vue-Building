@@ -66,17 +66,13 @@ export const useSalaryStore = defineStore("salary", () => {
   };
 
   // Ishchini o'chirish
-  const delete_salary = async (_id) => {
+  const delete_salary = async (id) => {
     await api
       .deleteAxios({
-        url: `salary/${_id}`
+        url: `salary/delete/${id}`
       })
-      .then(() => {
-        salary.value = salary.value.filter((item) => {
-          if (item._id == _id) return false;
-          return item;
-        });
-        salary.value = [...salary.value];
+      .then((res) => {
+        salary.value = [...res.data];
       });
   };
 

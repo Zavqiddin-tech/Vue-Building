@@ -3,8 +3,7 @@ import reportCard from '@/components/dashboard/report-card.vue';
 </script>
 
 <template>
-	view dash
-	<div class="cards">
+	<div>
 		<reportCard />
 	</div>
 </template>

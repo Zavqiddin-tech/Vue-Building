@@ -5,7 +5,7 @@ import { data } from "autoprefixer";
 
 export const useKatlavanStore = defineStore("katlavan", () => {
   const katlavan = ref([]);
-  const katlavanResult = ref(0)
+  const katlavanResult = ref(0);
 
   const api = useApiStore();
 
@@ -17,20 +17,19 @@ export const useKatlavanStore = defineStore("katlavan", () => {
       })
       .then((res) => {
         console.log(res.data);
-        katlavan.value = [...res.data.allKatlavan];
+        katlavan.value = [...res.data];
       });
   };
 
   // natijani olish
   const get_katlavan_result = async () => {
-    console.log('get get');
     await api
       .getAxios({
         url: "katlavan/result",
       })
       .then((res) => {
         console.log(res.data);
-        katlavanResult.value = res.data
+        katlavanResult.value = res.data;
       });
   };
 
@@ -42,15 +41,15 @@ export const useKatlavanStore = defineStore("katlavan", () => {
         data,
       })
       .then((res) => {
-				console.log(res.data);
-        katlavan.value = [...res.data.allKatlavan];
+        console.log(res.data);
+        katlavan.value = [...res.data];
       });
   };
 
   // Bitta ishchini olish
-  const get_katlavan = async (_id) => {
+  const get_katlavan = async (id) => {
     return await api.getAxios({
-      url: `katlavan/${_id}`,
+      url: `katlavan/one/${id}`,
     });
   };
 
@@ -58,35 +57,25 @@ export const useKatlavanStore = defineStore("katlavan", () => {
   const update_katlavan = async (data) => {
     await api
       .putAxios({
-        url: `katlavan/${data._id}`,
+        url: `katlavan/update/${data.id}`,
         data,
       })
       .then((res) => {
-        katlavan.value = katlavan.value.map((item) => {
-          if (item._id == res.data._id) return res.data;
-          return item;
-        });
-        katlavan.value = [...katlavan.value];
+        katlavan.value = [...res.data];
       });
   };
 
   // Ishchini o'chirish
-  const delete_katlavan = async (_id) => {
+  const delete_katlavan = async (id) => {
     await api
       .deleteAxios({
-        url: `katlavan/${_id}`
+        url: `katlavan/delete/${id}`,
       })
-      .then(() => {
-        katlavan.value = katlavan.value.filter((item) => {
-          if (item._id == _id) return false;
-          return item;
-        });
-        katlavan.value = [...katlavan.value];
+      .then((res) => {
+        katlavan.value = [...res.data];
       });
   };
 
-
- 
   return {
     katlavan,
     katlavanResult,

@@ -1,7 +1,15 @@
 <script setup >
-import {ref} from 'vue'
+import {ref, watch} from 'vue'
+import { storeToRefs } from 'pinia';
+
+
+
+//store
+import { useModalStore } from '@/stores/modal';
+const {modal, updateModal, nowId} = storeToRefs(useModalStore())
+const {setModal, setUpdateModal, setNowId} = useModalStore()
 import { useWorkersStore } from '@/stores/workers/workers';
-const {new_worker} = useWorkersStore()
+const {new_worker, get_worker, update_worker} = useWorkersStore()
 
 const state = ref({})
 import { Button } from "@/components/ui/button";
@@ -18,24 +26,49 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/toast/use-toast";
 const { toast } = useToast();
-const toggle = ref(false)
-const setToggle = (val) => toggle.value = val
 const add = () => {
 	if(state.value.fName && state.value.lName && state.value.phone) {
-		new_worker(state.value)
-		state.value = {}
-		setToggle(false)
+    if (updateModal.value) {
+      update_worker(state.value)
+      handleClose()
+    } else {
+      new_worker(state.value)
+      handleClose()
+    }
 	} else {
-    toast({
-      title: "E'tibor bering",
-      description: "Barcha maydon to'ldirilishi shart !",
-    });
+		toast({
+        title: "E'tibor bering",
+        description: "Barcha maydon to'ldirilishi shart !",
+      });
+	}
+}
+
+
+const handleClose = () => {
+  state.value = {}
+    setModal(false)
+    setUpdateModal(false)
+    setNowId('')
+}
+
+const onClose = (isOpen)=> {
+  if (isOpen == false) {
+    handleClose()
   }
 }
+
+watch(updateModal, async () => {
+  if (updateModal.value) {
+    const res = await get_worker(nowId.value)
+    if(res.status == 200) {
+      state.value = res.data
+    }
+  }
+})
 </script>
 
 <template>
-  <Dialog v-model:open="toggle">
+  <Dialog v-model:open="modal" @update:open="onClose">
     <DialogTrigger as-child>
       <Button class="bg-[#603cff] hover:bg-[#603cffbe]">qo'shish</Button>
     </DialogTrigger>

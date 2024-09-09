@@ -6,7 +6,7 @@ import { convertDate } from "@/func/date";
 // store
 import { useSalaryStore } from "@/stores/salary/salary";
 const { salary } = storeToRefs(useSalaryStore());
-const { get_all_salary } = useSalaryStore();
+const { get_all_salary, delete_salary } = useSalaryStore();
 import { useModalStore } from '@/stores/modal';
 const {setModal, setUpdateModal, setNowId} = useModalStore()
 
@@ -25,6 +25,12 @@ const edit = async (id) => {
   setModal(true)
   setUpdateModal(true)
   setNowId(id)
+}
+
+const del = (id) => {
+  if(confirm("O'chirilsinmi")) {
+    delete_salary(id)
+  }
 }
 
 onMounted(() => {

@@ -5,14 +5,10 @@ import { useAdminsStore } from "../admins/admins";
 import cookies from "vue-cookies";
 import router from "@/router";
 
-
-
-
-
 export const useAuthStore = defineStore("auth", () => {
   const api = useApiStore();
   const tokenStore = useTokenStore();
-  const {setAdmins} = useAdminsStore()
+  const { setAdmins } = useAdminsStore();
 
   const regis = async (data) => {
     await api
@@ -22,11 +18,11 @@ export const useAuthStore = defineStore("auth", () => {
       })
       .then((res) => {
         console.log(res.data);
-        setAdmins(res.data.admins)
-      }).catch(err => {
-        console.log(err);
-        
+        setAdmins(res.data.admins);
       })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   const login = async (data) => {
     await api
@@ -39,8 +35,8 @@ export const useAuthStore = defineStore("auth", () => {
         if (res.data.accessToken) {
           tokenStore.setToken(res.data.accessToken);
           router.push("/dashboard");
-        } 
-      })
+        }
+      });
   };
 
   const checkUser = async () => {
@@ -58,16 +54,20 @@ export const useAuthStore = defineStore("auth", () => {
     if (cookies.isKey("build-token")) {
       tokenStore.setToken(cookies.get("build-token"));
     }
-     await api.getAxios({
+    await api.getAxios({
       url: "auth/checkAdmin",
-    })
-    
+    });
+  };
+
+  const get_admin = async () => {
+    return await api.getAxios({ url: "auth/one" });
   };
 
   return {
     regis,
     login,
     checkUser,
-    checkAdmin
+    checkAdmin,
+    get_admin,
   };
 });

@@ -44,9 +44,9 @@ export const useWorkersStore = defineStore("workers", () => {
   };
 
   // Bitta ishchini olish
-  const get_worker = async (_id) => {
+  const get_worker = async (id) => {
     return await api.getAxios({
-      url: `workers/${_id}`,
+      url: `workers/one/${id}`,
     });
   };
 
@@ -54,30 +54,22 @@ export const useWorkersStore = defineStore("workers", () => {
   const update_worker = async (data) => {
     await api
       .putAxios({
-        url: `workers/${data._id}`,
+        url: `workers/update/${data.id}`,
         data,
       })
       .then((res) => {
-        workers.value = workers.value.map((item) => {
-          if (item._id == res.data._id) return res.data;
-          return item;
-        });
-        workers.value = [...workers.value];
+        workers.value = [...res.data];
       });
   };
 
   // Ishchini o'chirish
-  const delete_worker = async (_id) => {
+  const delete_worker = async (id) => {
     await api
       .deleteAxios({
-        url: `workers/${_id}`
+        url: `workers/delete/${id}`
       })
-      .then(() => {
-        workers.value = workers.value.filter((item) => {
-          if (item._id == _id) return false;
-          return item;
-        });
-        workers.value = [...workers.value];
+      .then((res) => {
+        workers.value = [...res.data];
       });
   };
 

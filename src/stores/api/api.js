@@ -55,6 +55,16 @@ export const useApiStore = defineStore("api", () => {
       });
   };
 
+  const patchAxios = (payload) => {
+    return axios
+      .patch(`${url.value}/${payload.url}`, payload.data, {
+        headers: { Authorization: `Bearer ${tokenStore.token}` },
+      })
+      .catch((e) => {
+        console.log(e.message);
+      });
+  }
+
   const deleteAxios = (payload) => {
     return axios
       .delete(`${url.value}/${payload.url}`, {
@@ -68,6 +78,7 @@ export const useApiStore = defineStore("api", () => {
     getAxios,
     postAxios,
     putAxios,
+    patchAxios,
     deleteAxios,
   };
 });

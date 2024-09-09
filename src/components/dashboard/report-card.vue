@@ -11,20 +11,20 @@ const { investResult } = storeToRefs(useInvestStore());
 const { salaryResult } = storeToRefs(useSalaryStore());
 const { podvalResult } = storeToRefs(usePodvalStore());
 const { katlavanResult } = storeToRefs(useKatlavanStore());
-const {workersResult} = storeToRefs(useWorkersStore())
+const { workersResult } = storeToRefs(useWorkersStore());
 
 onMounted(() => {
   useInvestStore().get_invest_result();
   useSalaryStore().get_salary_result();
   usePodvalStore().get_podval_result();
   useKatlavanStore().get_katlavan_result();
-  useWorkersStore().get_worker_result()
+  useWorkersStore().get_worker_result();
 });
 </script>
 
 <template>
-  <div class="flex justify-between flex-wrap">
-    <div class="w-3/12 px-3">
+  <div class="-ml-3 -mr-3 flex flex-wrap">
+    <div class="w-4/12 mb-6 px-3">
       <div class="px-3 py-4 flex items-center gap-4 bg-white rounded-xl">
         <div
           class="icon w-[45px] h-[45px] flex justify-center items-center rounded-full bg-[#e9edf1] text-[25px] text-[#603cff]"
@@ -33,14 +33,13 @@ onMounted(() => {
         </div>
         <div>
           <div>Sarmoya</div>
-          <div class=" pt-2 text-2xl font-bold">
-            {{ investResult.toLocaleString()
-            }}<span class="text-base font-normal"> sum</span>
+          <div class="pt-2 text-2xl font-bold">
+            $ {{ investResult.toLocaleString()}}
           </div>
         </div>
       </div>
     </div>
-    <div class="w-3/12 px-3">
+    <div class="w-4/12 mb-6 px-3">
       <div class="px-3 py-4 flex items-center gap-4 bg-white rounded-xl">
         <div
           class="icon w-[45px] h-[45px] flex justify-center items-center rounded-full bg-[#e9edf1] text-[25px] text-[#603cff]"
@@ -56,7 +55,7 @@ onMounted(() => {
         </div>
       </div>
     </div>
-    <div class="w-3/12 px-3">
+    <div class="w-4/12 mb-6 px-3">
       <div class="px-3 py-4 flex items-center gap-4 bg-white rounded-xl">
         <div
           class="icon w-[45px] h-[45px] flex justify-center items-center rounded-full bg-[#e9edf1] text-[25px] text-[#603cff]"
@@ -72,7 +71,7 @@ onMounted(() => {
         </div>
       </div>
     </div>
-    <div class="w-3/12 px-3">
+    <div class="w-4/12 mb-6 px-3">
       <div class="px-3 py-4 flex items-center gap-4 bg-white rounded-xl">
         <div
           class="icon w-[45px] h-[45px] flex justify-center items-center rounded-full bg-[#e9edf1] text-[25px] text-[#603cff]"
@@ -88,7 +87,7 @@ onMounted(() => {
         </div>
       </div>
     </div>
-    <div class="w-3/12 mt-5 px-3">
+    <div class="w-4/12 mb-6 px-3">
       <div class="px-3 py-4 flex items-center gap-4 bg-white rounded-xl">
         <div
           class="icon w-[45px] h-[45px] flex justify-center items-center rounded-full bg-[#e9edf1] text-[25px] text-[#603cff]"
