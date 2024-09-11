@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import { useAuthStore } from '@/stores/auth/auth'
 
 const router = createRouter({
-  history: createWebHistory('https://lifetown.netlify.app'),
+  history: createWebHistory(),
   routes: [
     {
       path: '/',
