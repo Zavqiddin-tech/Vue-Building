@@ -2,11 +2,10 @@
 import { ref, watch } from "vue";
 import { storeToRefs } from "pinia";
 
-
 //store
-import { useModalStore } from '@/stores/modal';
-const {modal, updateModal, nowId} = storeToRefs(useModalStore())
-const {setModal, setUpdateModal, setNowId} = useModalStore()
+import { useModalStore } from "@/stores/modal";
+const { modal, updateModal, nowId } = storeToRefs(useModalStore());
+const { setModal, setUpdateModal, setNowId } = useModalStore();
 import { useKatlavanStore } from "@/stores/katlavan/katlavan";
 const { new_katlavan, update_katlavan, get_katlavan } = useKatlavanStore();
 
@@ -27,49 +26,49 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/toast/use-toast";
 const { toast } = useToast();
 const add = () => {
-	if(state.value.title && state.value.price) {
+  if (state.value.title && state.value.price) {
     if (updateModal.value) {
-      update_katlavan(state.value)
-      handleClose()
+      update_katlavan(state.value);
+      handleClose();
     } else {
-      new_katlavan(state.value)
-      handleClose()
+      new_katlavan(state.value);
+      handleClose();
     }
-	} else {
-		toast({
-        title: "E'tibor bering",
-        description: "Barcha maydon to'ldirilishi shart !",
-      });
-	}
-}
+  } else {
+    toast({
+      title: "E'tibor bering",
+      description: "Barcha maydon to'ldirilishi shart !",
+    });
+  }
+};
 
 const handleClose = () => {
-  state.value = {}
-    setModal(false)
-    setUpdateModal(false)
-    setNowId('')
-}
+  state.value = {};
+  setModal(false);
+  setUpdateModal(false);
+  setNowId("");
+};
 
-const onClose = (isOpen)=> {
+const onClose = (isOpen) => {
   if (isOpen == false) {
-    handleClose()
+    handleClose();
   }
-}
+};
 
 watch(updateModal, async () => {
   if (updateModal.value) {
-    const res = await get_katlavan(nowId.value)
-    if(res.status == 200) {
-      state.value = res.data
+    const res = await get_katlavan(nowId.value);
+    if (res.status == 200) {
+      state.value = res.data;
     }
   }
-})
+});
 </script>
 
 <template>
   <Dialog v-model:open="modal" @update:open="onClose">
     <DialogTrigger as-child>
-      <Button class="bg-[#603cff] hover:bg-[#603cffbe]">Chiqim</Button>
+      <Button class="bg-[#603cff] hover:bg-[#603cffbe]">Kiritish</Button>
     </DialogTrigger>
     <DialogContent class="sm:max-w-[425px]">
       <DialogHeader>

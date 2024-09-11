@@ -60,7 +60,26 @@ export const useAuthStore = defineStore("auth", () => {
   };
 
   const get_admin = async () => {
-    return await api.getAxios({ url: "auth/one" });
+    return await api.getAxios({
+      url: "auth/one",
+    });
+  };
+
+  const get_user = async (id) => {
+    return await api.getAxios({
+      url: `auth/one/${id}`,
+    });
+  };
+
+  const update_admin = async (data) => {
+    await api
+      .patchAxios({
+        url: `auth/update/admin/${data.id}`,
+        data,
+      })
+      .then((res) => {
+        console.log(res.data);
+      });
   };
 
   return {
@@ -69,5 +88,7 @@ export const useAuthStore = defineStore("auth", () => {
     checkUser,
     checkAdmin,
     get_admin,
+    get_user,
+    update_admin
   };
 });

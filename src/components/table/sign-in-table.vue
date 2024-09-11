@@ -2,16 +2,25 @@
 import { onMounted } from "vue";
 import { storeToRefs } from "pinia";
 import { convertDate } from "@/func/date";
+
+// store
+import { useModalStore } from '@/stores/modal';
+const {setModal, setUpdateModal, setNowId} = useModalStore()
+
 import { useAdminsStore } from "@/stores/admins/admins";
 const { admins } = storeToRefs(useAdminsStore());
 const { get_all_admins, change_status, delete_admin } = useAdminsStore();
 
-const edit = (id) => {
-  console.log(id);
-};
 
 const changeStatus = (data) => {
   change_status(data)
+}
+
+
+const edit = async (id) => {
+  setModal(true)
+  setUpdateModal(true)
+  setNowId(id)
 }
 
 const del = (id) => {
