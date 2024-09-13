@@ -4,9 +4,9 @@ import { storeToRefs } from "pinia";
 import { convertDate } from "@/func/date";
 
 // store
-import { useInvestStore } from "@/stores/invest/invest";
-const {invest} = storeToRefs(useInvestStore())
-const { get_all_invest, delete_invest } = useInvestStore() 
+import { useExitStore } from "@/stores/exit/exit";
+const { exit } = storeToRefs(useExitStore());
+const { get_all_exit, delete_exit } = useExitStore();
 import { useModalStore } from '@/stores/modal';
 const {setModal, setUpdateModal, setNowId} = useModalStore()
 
@@ -20,6 +20,11 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
 const edit = async (id) => {
   setModal(true)
@@ -28,39 +33,46 @@ const edit = async (id) => {
 }
 
 const del = (id) => {
-  if (confirm("O'chirilsinmi")) {
-    delete_invest(id)
+  if(confirm("O'chirasizmi")) {
+    delete_exit(id)
   }
 }
 
 onMounted(() => {
-  get_all_invest();
+  get_all_exit();
 });
 </script>
 
 <template>
   <div>
-    <Table v-if="Array.isArray(invest) && invest.length > 0">
-      <TableCaption>Sarmoyalar</TableCaption>
+    <Table v-if="Array.isArray(exit) && exit.length > 0">
+      <TableCaption>Exit xarajatlari</TableCaption>
       <TableHeader>
         <TableRow>
-          <TableHead class="text-[16px]">Kim tomonidan</TableHead>
+          <TableHead class="text-[16px]">Nomi</TableHead>
           <TableHead class="text-[16px]">Miqdori</TableHead>
           <TableHead class="text-[16px]">Qaysi kuni</TableHead>
           <TableHead class="text-[16px]">Kiritildi</TableHead>
           <TableHead class="text-[16px]">Author</TableHead>
+          <TableHead class="text-[16px]">Batafsil</TableHead>
           <TableHead class="text-[16px] text-right"> edit </TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
-        <TableRow v-for="item in invest" class="hover:bg-black/10">
-          
-          <TableCell>{{ item.name }}</TableCell>
-          <TableCell>$ {{ item.amount.toLocaleString() }}</TableCell>
+        <TableRow v-for="item in exit" class="hover:bg-black/10">
+          <TableCell class="font-medium capitalize">
+            {{ item.title }}
+          </TableCell>
+          <TableCell>{{ item.price.toLocaleString() }}</TableCell>
           <TableCell>{{ item.selectDate }}</TableCell>
           <TableCell>{{ convertDate(item.createAt, 1) }}</TableCell>
           <TableCell>{{ item.createdBy.userName }}</TableCell>
-          
+          <TableCell>
+            <Popover>
+              <PopoverTrigger class=" p-2 bg-green-500 text-white rounded-lg shadow"> shu yerda</PopoverTrigger>
+              <PopoverContent> {{ item.detail }} </PopoverContent>
+            </Popover>
+          </TableCell>
           <TableCell class="float-right">
             <div class="flex items-start gap-3">
               <div

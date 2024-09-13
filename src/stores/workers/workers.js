@@ -21,7 +21,6 @@ export const useWorkersStore = defineStore("workers", () => {
 
   // natijani olish
   const get_worker_result = async () => {
-    console.log('get get');
     await api
       .getAxios({
         url: "workers/result",

@@ -5,10 +5,11 @@ import { useAdminsStore } from "../admins/admins";
 import cookies from "vue-cookies";
 import router from "@/router";
 
+
 export const useAuthStore = defineStore("auth", () => {
   const api = useApiStore();
   const tokenStore = useTokenStore();
-  const { setAdmins } = useAdminsStore();
+  const { setAdmins, setAdminRole } = useAdminsStore();
 
   const regis = async (data) => {
     await api
@@ -17,8 +18,7 @@ export const useAuthStore = defineStore("auth", () => {
         data,
       })
       .then((res) => {
-        console.log(res.data);
-        setAdmins(res.data.admins);
+        setAdmins(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -31,10 +31,15 @@ export const useAuthStore = defineStore("auth", () => {
         data,
       })
       .then((res) => {
-        console.log(res.data);
         if (res.data.accessToken) {
           tokenStore.setToken(res.data.accessToken);
-          router.push("/dashboard");
+          setAdminRole(res.data.role);
+          if (res.data.role == "manager") {
+            router.push("/podval");
+          }
+          if (res.data.role == "admin" || res.data.role == 'director') {
+            router.push("/dashboard");
+          }
         }
       });
   };
@@ -54,9 +59,18 @@ export const useAuthStore = defineStore("auth", () => {
     if (cookies.isKey("build-token")) {
       tokenStore.setToken(cookies.get("build-token"));
     }
-    await api.getAxios({
-      url: "auth/checkAdmin",
-    });
+    await api
+      .getAxios({
+        url: "auth/checkAdmin",
+      })
+      .then((res) => {
+        setAdminRole(res.data.role);
+        if (res.data.role == 'manager') {
+          router.push('/podval')
+        } else {
+          console.log('success');
+        }
+      });
   };
 
   const get_admin = async () => {
@@ -78,7 +92,7 @@ export const useAuthStore = defineStore("auth", () => {
         data,
       })
       .then((res) => {
-        console.log(res.data);
+        setAdmins(res.data)
       });
   };
 
@@ -89,6 +103,6 @@ export const useAuthStore = defineStore("auth", () => {
     checkAdmin,
     get_admin,
     get_user,
-    update_admin
+    update_admin,
   };
 });

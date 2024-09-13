@@ -9,7 +9,6 @@ const { setModal, setUpdateModal, setNowId } = useModalStore();
 import { useKatlavanStore } from "@/stores/katlavan/katlavan";
 const { new_katlavan, update_katlavan, get_katlavan } = useKatlavanStore();
 
-const state = ref({});
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -21,18 +20,39 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { Calendar } from "@/components/ui/calendar";
 import { useToast } from "@/components/ui/toast/use-toast";
 const { toast } = useToast();
+
+const state = ref({});
+const calendar = ref({});
 const add = () => {
+  let resDate = "";
+  let newDay = String(calendar.value.date?.day).padStart(2, "0");
+  let newMonth = String(calendar.value.date?.month).padStart(2, "0");
+  let newYear = String(calendar.value.date?.year);
+  resDate = `${newDay}-${newMonth}-${newYear}`;
+
   if (state.value.title && state.value.price) {
     if (updateModal.value) {
-      update_katlavan(state.value);
-      handleClose();
+      if (resDate.includes("undefined")) {
+        update_katlavan(state.value);
+        handleClose();
+      } else {
+        update_katlavan({ ...state.value, selectDate: resDate });
+        handleClose();
+      }
     } else {
-      new_katlavan(state.value);
-      handleClose();
+      if (resDate.includes("undefined")) {
+        toast({
+          title: "E'tibor bering",
+          description: "Sanani tanlang !",
+        });
+      } else {
+        new_katlavan({ ...state.value, selectDate: resDate });
+        handleClose();
+      }
     }
   } else {
     toast({
@@ -77,20 +97,40 @@ watch(updateModal, async () => {
           Ma'lumotlarni to'g'ri kiriting !
         </DialogDescription>
       </DialogHeader>
-      <div>
+      <di>
         <div class="mb-4">
-          <Label for="title" class="text-right"> Nomi </Label>
-          <Input class="mt-2" v-model="state.title" id="title" />
+          <Input
+            class="mt-2"
+            v-model="state.title"
+            id="title"
+            placeholder="Nomini kiriting"
+          />
         </div>
         <div class="mb-4">
-          <Label for="price" class="text-right"> Narxi </Label>
-          <Input class="mt-2" v-model="state.price" type="number" id="price" />
+          <Input
+            class="mt-2"
+            v-model="state.price"
+            type="number"
+            id="price"
+            placeholder="narxini kiriting"
+          />
         </div>
         <div class="mb-4">
-          <Label for="detail" class="text-right"> Batafsil </Label>
-          <Textarea class="w-full mt-2" v-model="state.detail" id="detail" />
+          <Textarea
+            class="w-full mt-2"
+            v-model="state.detail"
+            id="detail"
+            placeholder="batafsil"
+          />
         </div>
-      </div>
+        <div class="mb-4">
+          <Calendar
+            v-model="calendar.date"
+            :weekday-format="'short'"
+            class="rounded-md border"
+          />
+        </div>
+      </di>
       <DialogFooter>
         <Button @click="add()" class="bg-[#603cff] hover:bg-[#603cffbe]">
           Save changes

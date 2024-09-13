@@ -4,9 +4,13 @@ import { useApiStore } from "@/stores/api/api";
 
 export const useAdminsStore = defineStore("admins", () => {
   const admins = ref([]);
-	const setAdmins = (val) => {
-		admins.value = val
-	}
+  const adminRole = ref('')
+  const setAdmins = (val) => {
+    admins.value = val;
+  };
+  const setAdminRole = (val) => {
+    adminRole.value = val;
+  };
 
   const api = useApiStore();
 
@@ -17,8 +21,7 @@ export const useAdminsStore = defineStore("admins", () => {
         url: "auth/admins",
       })
       .then((res) => {
-				console.log(res.data);
-        admins.value = [...res.data.admins];
+        admins.value = [...res.data];
       });
   };
 
@@ -30,14 +33,14 @@ export const useAdminsStore = defineStore("admins", () => {
         data,
       })
       .then((res) => {
-        admins.value = [res.data, ...admins.value];
+        admins.value = [...res.data];
       });
   };
 
   // Bitta ishchini olish
-  const get_admin = async (_id) => {
+  const get_admin = async (id) => {
     return await api.getAxios({
-      url: `auth/admins/${_id}`,
+      url: `auth/admins/${id}`,
     });
   };
 
@@ -45,15 +48,11 @@ export const useAdminsStore = defineStore("admins", () => {
   const update_admin = async (data) => {
     await api
       .putAxios({
-        url: `auth/admins/${data._id}`,
+        url: `auth/admins/${data.id}`,
         data,
       })
       .then((res) => {
-        admins.value = admins.value.map((item) => {
-          if (item._id == res.data._id) return res.data;
-          return item;
-        });
-        admins.value = [...admins.value];
+        admins.value = [...res.data];
       });
   };
   const change_status = async (data) => {
@@ -63,30 +62,26 @@ export const useAdminsStore = defineStore("admins", () => {
         data,
       })
       .then((res) => {
-        admins.value = [...res.data.admins];
+        admins.value = [...res.data];
       });
   };
 
   // Ishchini o'chirish
-  const delete_admin = async (_id) => {
+  const delete_admin = async (id) => {
     await api
       .deleteAxios({
-        url: `auth/admins/delete/${_id}`
+        url: `auth/admins/delete/${id}`,
       })
       .then(() => {
-        admins.value = admins.value.filter((item) => {
-          if (item.id == _id) return false;
-          return item;
-        });
-        admins.value = [...admins.value];
+        admins.value = [...res.data];
       });
   };
 
-
- 
   return {
     admins,
-		setAdmins,
+    adminRole,
+    setAdmins,
+    setAdminRole,
     get_all_admins,
     get_admin,
     new_admin,

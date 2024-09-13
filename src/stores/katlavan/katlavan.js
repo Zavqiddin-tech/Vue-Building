@@ -16,7 +16,6 @@ export const useKatlavanStore = defineStore("katlavan", () => {
         url: "katlavan/all",
       })
       .then((res) => {
-        console.log(res.data);
         katlavan.value = [...res.data];
       });
   };
@@ -28,7 +27,6 @@ export const useKatlavanStore = defineStore("katlavan", () => {
         url: "katlavan/result",
       })
       .then((res) => {
-        console.log(res.data);
         katlavanResult.value = res.data;
       });
   };
@@ -41,7 +39,6 @@ export const useKatlavanStore = defineStore("katlavan", () => {
         data,
       })
       .then((res) => {
-        console.log(res.data);
         katlavan.value = [...res.data];
       });
   };

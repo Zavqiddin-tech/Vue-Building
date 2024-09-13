@@ -51,6 +51,7 @@ onMounted(() => {
         <TableRow>
           <TableHead class="text-[16px]">Nomi</TableHead>
           <TableHead class="text-[16px]">Miqdori</TableHead>
+          <TableHead class="text-[16px]">Qaysi kuni</TableHead>
           <TableHead class="text-[16px]">Kiritildi</TableHead>
           <TableHead class="text-[16px]">Author</TableHead>
           <TableHead class="text-[16px]">Batafsil</TableHead>
@@ -63,7 +64,8 @@ onMounted(() => {
             {{ item.title }}
           </TableCell>
           <TableCell>{{ item.price.toLocaleString() }}</TableCell>
-          <TableCell>{{ convertDate(item.createAt) }}</TableCell>
+          <TableCell>{{ item.selectDate }}</TableCell>
+          <TableCell>{{ convertDate(item.createAt, 1) }}</TableCell>
           <TableCell>{{ item.createdBy.userName }}</TableCell>
           <TableCell>
             <Popover>

@@ -15,20 +15,17 @@ export const usePodvalStore = defineStore("podval", () => {
         url: "podval/all",
       })
       .then((res) => {
-        console.log(res.data);
         podval.value = [...res.data];
       });
   };
 
     // natijani olish
     const get_podval_result = async () => {
-      console.log('get get');
       await api
         .getAxios({
           url: "podval/result",
         })
         .then((res) => {
-          console.log(res.data);
           podvalResult.value = res.data
         });
     };
@@ -41,7 +38,6 @@ export const usePodvalStore = defineStore("podval", () => {
         data,
       })
       .then((res) => {
-				console.log(res.data);
         podval.value = [...res.data];
       });
   };
@@ -61,8 +57,6 @@ export const usePodvalStore = defineStore("podval", () => {
         data,
       })
       .then((res) => {
-        console.log(res.data);
-        
         podval.value = [...res.data];
       });
   };

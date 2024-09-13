@@ -1,8 +1,98 @@
+<script setup>
+import { onMounted } from "vue";
+import { useRoute } from "vue-router";
+import { storeToRefs } from "pinia";
+import { useAuthStore } from "@/stores/auth/auth";
+import { useAdminsStore } from "@/stores/admins/admins";
+const { adminRole } = storeToRefs(useAdminsStore());
+
+// Marshrutlar ro'yxati
+const routes = [
+  {
+    name: "Dashboard",
+    position: true,
+    path: "/dashboard",
+    icon: "fa-solid fa-house",
+  },
+  {
+    name: "Sarmoya",
+    position: true,
+    path: "/invest",
+    icon: "fa-solid fa-chart-simple",
+  },
+  {
+    name: "Ishchilar",
+    position: true,
+    path: "/workers",
+    icon: "fa-solid fa-user",
+  },
+  {
+    name: "Oylik maosh",
+    position: true,
+    path: "/salary",
+    icon: "fa-solid fa-sack-dollar",
+  },
+  {
+    name: "Katlavan",
+    position: true,
+    path: "/katlavan",
+    icon: "fa-solid fa-layer-group",
+  },
+  { name: "Podval", path: "/podval", icon: "fa-solid fa-store" },
+  {
+    name: "Boshqalar",
+    position: true,
+    path: "/exit",
+    icon: "fa-solid fa-file-lines",
+  },
+  {
+    name: "Sozlamalar",
+    position: true,
+    path: "/signin",
+    icon: "fa-solid fa-gear",
+  },
+  // Qo'shimcha marshrutlar qo'shishingiz mumkin
+];
+const managerRoutes = [
+  { name: "Podval", path: "/podval", icon: "fa-solid fa-store" },
+];
+
+// Hozirgi marshrutni olish
+const route = useRoute();
+
+// Faol marshrutni tekshirish
+const isActiveRoute = (path) => {
+  return route.path === path;
+};
+
+onMounted(async () => {
+  await useAuthStore().checkAdmin();
+});
+</script>
+
 <template>
   <div class="sidebar pt-8 h-full rounded-xl bg-white">
-    <div class="pb-5 text-2xl text-center font-extrabold border-b"> <i class="fa-solid fa-hashtag"></i> ZAVQI UI</div>
-    <ul class="mt-10 ml-10 flex flex-col gap-6">
+    <div class="pb-5 text-2xl text-center font-extrabold border-b">
+      <i class="fa-solid fa-hashtag"></i> ZAVQI UI
+    </div>
+    <ul
+      v-if="adminRole == 'admin' || adminRole == 'director'"
+      class="admin-list mt-10 ml-10 flex flex-col gap-6"
+    >
       <li v-for="(route, index) in routes" :key="index">
+        <router-link
+          :to="route.path"
+          :class="{ active: isActiveRoute(route.path) }"
+        >
+          <div class="flex items-center gap-3">
+            <i :class="`${route.icon} text-[22px]`"></i>
+            <span class="text-[18px]">{{ route.name }}</span>
+          </div>
+        </router-link>
+      </li>
+    </ul>
+    <ul v-else class="mt-10 ml-10 flex flex-col gap-6">
+      <li v-for="(route, index) in managerRoutes" :key="index">
         <router-link
           :to="route.path"
           :class="{ active: isActiveRoute(route.path) }"
@@ -17,40 +107,15 @@
   </div>
 </template>
 
-<script setup>
-import { useRoute } from "vue-router";
-
-// Marshrutlar ro'yxati
-const routes = [
-  { name: "Dashboard", path: "/dashboard", icon: "fa-solid fa-house" },
-  { name: "Sarmoya", path: "/invest", icon: "fa-solid fa-chart-simple" },
-  { name: "Ishchilar", path: "/workers", icon: "fa-solid fa-user" },
-  { name: "Oylish maosh", path: "/salary", icon: "fa-solid fa-sack-dollar" },
-  { name: "Katlavan", path: "/katlavan", icon: "fa-solid fa-layer-group" },
-  { name: "Podval", path: "/podval", icon: "fa-solid fa-store" },
-  { name: "Sign in", path: "/signin", icon: "fa-solid fa-lock" },
-  // Qo'shimcha marshrutlar qo'shishingiz mumkin
-];
-
-// Hozirgi marshrutni olish
-const route = useRoute();
-
-// Faol marshrutni tekshirish
-const isActiveRoute = (path) => {
-  return route.path === path;
-};
-</script>
-
 <style scoped>
 .sidebar ul {
   height: 100%;
   position: relative;
   list-style-type: none;
   padding: 0;
-  
 }
 
-.sidebar ul li {
+.sidebar .admin-list li {
   color: #7a7f90;
   &:last-child {
     position: absolute;

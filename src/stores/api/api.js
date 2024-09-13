@@ -21,7 +21,10 @@ export const useApiStore = defineStore("api", () => {
       })
       .catch((e) => {
         if (e.response.status == 401) {
-          console.log(e);
+          toast({
+            title: 'Ogohlantirish',
+            description: e?.response?.data?.message,
+          });
           router.push("/auth");
           return false;
         }
@@ -29,7 +32,6 @@ export const useApiStore = defineStore("api", () => {
   };
 
   const postAxios = (payload) => {
-    console.log(payload);
     return axios
       .post(`${url.value}/${payload.url}`, payload.data, {
         headers: { Authorization: `Bearer ${tokenStore.token}` },
@@ -38,10 +40,13 @@ export const useApiStore = defineStore("api", () => {
         if (e.response.status == 401) {
           toast({
             title: 'Qayta urining',
-            description: 'Login yoki parol xato',
+            description: e?.response?.data?.message,
           });
         }
-        console.log(e.message);
+        toast({
+          title: 'Ogohlantirish',
+          description: e?.response?.data?.message,
+        });
       });
   };
 
@@ -51,7 +56,10 @@ export const useApiStore = defineStore("api", () => {
         headers: { Authorization: `Bearer ${tokenStore.token}` },
       })
       .catch((e) => {
-        console.log(e.message);
+        toast({
+          title: 'Ogohlantirish',
+          description: e?.response?.data?.message,
+        });
       });
   };
 
@@ -61,7 +69,10 @@ export const useApiStore = defineStore("api", () => {
         headers: { Authorization: `Bearer ${tokenStore.token}` },
       })
       .catch((e) => {
-        console.log(e.message);
+        toast({
+          title: 'Ogohlantirish',
+          description: e?.response?.data?.message,
+        });
       });
   }
 
@@ -71,7 +82,10 @@ export const useApiStore = defineStore("api", () => {
         headers: { Authorization: `Bearer ${tokenStore.token}` },
       })
       .catch((e) => {
-        console.log(e.message);
+        toast({
+          title: 'Ogohlantirish',
+          description: e?.response?.data?.message,
+        });
       });
   };
   return {

@@ -56,7 +56,7 @@ onMounted(() => {
         <TableCell class="font-medium capitalize">
           {{ item.fName }} {{ item.lName }}
         </TableCell>
-        <TableCell>{{ convertDate(item.createAt) }}</TableCell>
+        <TableCell>{{ convertDate(item.createAt, 1) }}</TableCell>
         <TableCell>{{ item.phone }}</TableCell>
         <TableCell>{{ item.createdWorker.userName }}</TableCell>
         <TableCell class="float-right">

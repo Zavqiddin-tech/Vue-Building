@@ -22,7 +22,6 @@ onMounted(async () => {
   const res = await get_admin();
   if (res.status == 200) {
     state.value = res.data;
-    console.log(res.data);
   }
 });
 </script>

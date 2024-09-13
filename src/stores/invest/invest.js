@@ -15,20 +15,17 @@ export const useInvestStore = defineStore("invest", () => {
         url: "invest/all",
       })
       .then((res) => {
-        console.log(res.data);
         invest.value = [...res.data];
       });
   };
 
     // natijani olish
     const get_invest_result = async () => {
-      console.log('get get');
       await api
         .getAxios({
           url: "invest/result",
         })
         .then((res) => {
-          console.log(res.data);
           investResult.value = res.data
         });
     };
@@ -41,7 +38,6 @@ export const useInvestStore = defineStore("invest", () => {
         data,
       })
       .then((res) => {
-				console.log(res.data);
         invest.value = [...res.data];
       });
   };

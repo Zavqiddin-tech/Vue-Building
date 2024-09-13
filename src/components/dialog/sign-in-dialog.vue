@@ -66,7 +66,6 @@ const onClose = (isOpen) => {
 watch(updateModal, async () => {
   if (updateModal.value) {
     const res = await get_user(nowId.value);
-		console.log(res.data);
     if (res.status == 200) {
       state.value = res.data;
     }
@@ -126,7 +125,6 @@ watch(updateModal, async () => {
             <SelectContent>
               <SelectGroup>
                 <SelectLabel>role</SelectLabel>
-                <SelectItem value="admin"> Admin </SelectItem>
                 <SelectItem value="director"> Director</SelectItem>
                 <SelectItem value="manager"> Manager</SelectItem>
               </SelectGroup>

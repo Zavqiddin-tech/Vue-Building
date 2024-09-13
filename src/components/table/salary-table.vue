@@ -58,7 +58,7 @@ onMounted(() => {
             {{ item.worker.fName }} {{ item.worker.lName }}
           </TableCell>
           <TableCell>{{ item.amount.toLocaleString() }}</TableCell>
-          <TableCell>{{ item.paymentForMonth }}</TableCell>
+          <TableCell>{{ item.selectDate }}</TableCell>
           <TableCell>{{ convertDate(item.createAt, 1) }}</TableCell>
           <TableCell>{{ item.createdBy.userName }}</TableCell>
           

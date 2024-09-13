@@ -7,7 +7,6 @@ import { useModalStore } from "@/stores/modal";
 const { modal, updateModal, nowId } = storeToRefs(useModalStore());
 const { setModal, setUpdateModal, setNowId } = useModalStore();
 
-const state = ref({});
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -29,18 +28,39 @@ import {
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Calendar } from "@/components/ui/calendar";
 import { useToast } from "@/components/ui/toast/use-toast";
 import { storeToRefs } from "pinia";
 const { toast } = useToast();
 
+const state = ref({});
+const calendar = ref({});
 const add = () => {
+  let resDate = "";
+  let newDay = String(calendar.value.date?.day).padStart(2, "0");
+  let newMonth = String(calendar.value.date?.month).padStart(2, "0");
+  let newYear = String(calendar.value.date?.year);
+  resDate = `${newDay}-${newMonth}-${newYear}`;
+
   if (state.value.name && state.value.amount) {
     if (updateModal.value) {
-      update_invest(state.value);
-      handleClose();
+      if (resDate.includes("undefined")) {
+        update_invest(state.value);
+        handleClose();
+      } else {
+        update_invest({ ...state.value, selectDate: resDate });
+        handleClose();
+      }
     } else {
-      new_invest(state.value);
-      handleClose();
+      if (resDate.includes("undefined")) {
+        toast({
+          title: "E'tibor bering",
+          description: "Sanani tanlang !",
+        });
+      } else {
+        new_invest({ ...state.value, selectDate: resDate });
+        handleClose();
+      }
     }
   } else {
     toast({
@@ -111,6 +131,13 @@ watch(updateModal, async () => {
             type="number"
             v-model="state.amount"
             id="amount"
+          />
+        </div>
+        <div>
+          <Calendar
+            v-model="calendar.date"
+            :weekday-format="'short'"
+            class="rounded-md border"
           />
         </div>
       </div>

@@ -15,7 +15,6 @@ export const useSalaryStore = defineStore("salary", () => {
         url: "salary/all",
       })
       .then((res) => {
-        console.log(res.data);
         salary.value = [...res.data];
       });
   };
@@ -39,7 +38,6 @@ export const useSalaryStore = defineStore("salary", () => {
         data,
       })
       .then((res) => {
-				console.log(res.data);
         salary.value = [...res.data];
       });
   };
@@ -59,8 +57,6 @@ export const useSalaryStore = defineStore("salary", () => {
         data,
       })
       .then((res) => {
-        console.log(res.data);
-        
         salary.value = [...res.data];
       });
   };
