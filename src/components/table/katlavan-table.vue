@@ -47,10 +47,10 @@ onMounted(() => {
   <div>
     <Table v-if="Array.isArray(katlavan) && katlavan.length > 0">
       <TableCaption>katlavan xarajatlari</TableCaption>
-      <TableHeader >
+      <TableHeader>
         <TableRow>
           <TableHead class="text-[16px]">Nomi</TableHead>
-          <TableHead class="text-[16px]">Miqdori</TableHead>
+          <TableHead class="text-[16px]">Narxi</TableHead>
           <TableHead class="text-[16px]">Qaysi kuni</TableHead>
           <TableHead class="text-[16px]">Kiritildi</TableHead>
           <TableHead class="text-[16px]">Author</TableHead>
@@ -63,7 +63,10 @@ onMounted(() => {
           <TableCell class="font-medium capitalize">
             {{ item.title }}
           </TableCell>
-          <TableCell>{{ item.price.toLocaleString() }}</TableCell>
+          <TableCell class="text-green-500">
+            <i class="fa-solid fa-money-bills pr-2 text-green-600"></i>
+            {{ item.price.toLocaleString() }}
+          </TableCell>
           <TableCell>{{ item.selectDate }}</TableCell>
           <TableCell>{{ convertDate(item.createAt, 1) }}</TableCell>
           <TableCell>{{ item.createdBy.userName }}</TableCell>

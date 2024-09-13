@@ -21,6 +21,12 @@ const routes = [
     icon: "fa-solid fa-chart-simple",
   },
   {
+    name: "Qavat",
+    position: true,
+    path: "/floor",
+    icon: "fa-solid fa-arrow-right-to-city",
+  },
+  {
     name: "Ishchilar",
     position: true,
     path: "/workers",

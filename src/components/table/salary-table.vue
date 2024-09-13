@@ -7,8 +7,8 @@ import { convertDate } from "@/func/date";
 import { useSalaryStore } from "@/stores/salary/salary";
 const { salary } = storeToRefs(useSalaryStore());
 const { get_all_salary, delete_salary } = useSalaryStore();
-import { useModalStore } from '@/stores/modal';
-const {setModal, setUpdateModal, setNowId} = useModalStore()
+import { useModalStore } from "@/stores/modal";
+const { setModal, setUpdateModal, setNowId } = useModalStore();
 
 //shadcn
 import {
@@ -22,16 +22,16 @@ import {
 } from "@/components/ui/table";
 
 const edit = async (id) => {
-  setModal(true)
-  setUpdateModal(true)
-  setNowId(id)
-}
+  setModal(true);
+  setUpdateModal(true);
+  setNowId(id);
+};
 
 const del = (id) => {
-  if(confirm("O'chirilsinmi")) {
-    delete_salary(id)
+  if (confirm("O'chirilsinmi")) {
+    delete_salary(id);
   }
-}
+};
 
 onMounted(() => {
   get_all_salary();
@@ -45,7 +45,7 @@ onMounted(() => {
       <TableHeader>
         <TableRow>
           <TableHead class="text-[16px]">Ismi</TableHead>
-          <TableHead class="text-[16px]">Miqdori</TableHead>
+          <TableHead class="text-[16px]">Narxi</TableHead>
           <TableHead class="text-[16px]">Qaysi oy uchun</TableHead>
           <TableHead class="text-[16px]">Kiritildi</TableHead>
           <TableHead class="text-[16px]">Author</TableHead>
@@ -57,11 +57,14 @@ onMounted(() => {
           <TableCell class="font-medium capitalize">
             {{ item.worker.fName }} {{ item.worker.lName }}
           </TableCell>
-          <TableCell>{{ item.amount.toLocaleString() }}</TableCell>
+          <TableCell class="text-green-500">
+            <i class="fa-solid fa-money-bills pr-2 text-green-600"></i>
+            {{ item.amount.toLocaleString() }}
+          </TableCell>
           <TableCell>{{ item.selectDate }}</TableCell>
           <TableCell>{{ convertDate(item.createAt, 1) }}</TableCell>
           <TableCell>{{ item.createdBy.userName }}</TableCell>
-          
+
           <TableCell class="float-right">
             <div class="flex items-start gap-3">
               <div

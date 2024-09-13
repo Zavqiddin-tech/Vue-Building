@@ -22,6 +22,16 @@ const router = createRouter({
           meta: { secure: true, position: true },
         },
         {
+          path: "/floor",
+          component: () => import("@/pages/floor.vue"),
+          meta: { secure: true, position: true },
+        },
+        {
+          path: "/floor/:id",
+          component: () => import("@/pages/more/floor-detail.vue"),
+          meta: { secure: true, position: true },
+        },
+        {
           path: "/workers",
           component: () => import("@/pages/workers.vue"),
           meta: { secure: true, position: true },

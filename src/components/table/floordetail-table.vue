@@ -2,13 +2,16 @@
 import { onMounted } from "vue";
 import { storeToRefs } from "pinia";
 import { convertDate } from "@/func/date";
+import { useRoute } from "vue-router";
+const routeId = useRoute().params.id
+
 
 // store
-import { useExitStore } from "@/stores/exit/exit";
-const { exit } = storeToRefs(useExitStore());
-const { get_all_exit, delete_exit } = useExitStore();
 import { useModalStore } from "@/stores/modal";
 const { setModal, setUpdateModal, setNowId } = useModalStore();
+import { useEachStore } from "@/stores/floor/each";
+const { each } = storeToRefs(useEachStore());
+const { get_all_each, delete_each } = useEachStore();
 
 //shadcn
 import {
@@ -34,19 +37,19 @@ const edit = async (id) => {
 
 const del = (id) => {
   if (confirm("O'chirasizmi")) {
-    delete_exit(id);
+    delete_each(id, routeId);
   }
 };
 
 onMounted(() => {
-  get_all_exit();
+  get_all_each(routeId);
 });
 </script>
 
 <template>
   <div>
-    <Table v-if="Array.isArray(exit) && exit.length > 0">
-      <TableCaption>Exit xarajatlari</TableCaption>
+    <Table v-if="Array.isArray(each) && each.length > 0">
+      <TableCaption>katlavan xarajatlari</TableCaption>
       <TableHeader>
         <TableRow>
           <TableHead class="text-[16px]">Nomi</TableHead>
@@ -59,13 +62,13 @@ onMounted(() => {
         </TableRow>
       </TableHeader>
       <TableBody>
-        <TableRow v-for="item in exit" class="hover:bg-black/10">
+        <TableRow v-for="item in each" class="hover:bg-black/10">
           <TableCell class="font-medium capitalize">
             {{ item.title }}
           </TableCell>
           <TableCell class="text-green-500">
             <i class="fa-solid fa-money-bills pr-2 text-green-600"></i>
-            {{ item.price.toLocaleString() }} 
+            {{ item.price.toLocaleString() }}
           </TableCell>
           <TableCell>{{ item.selectDate }}</TableCell>
           <TableCell>{{ convertDate(item.createAt, 1) }}</TableCell>

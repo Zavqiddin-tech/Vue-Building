@@ -34,7 +34,7 @@ onMounted(() => {
         <div>
           <div>Sarmoya</div>
           <div class="pt-2 text-2xl font-bold">
-            $ {{ investResult.toLocaleString()}}
+            <i class="fa-solid fa-dollar-sign pr-1"></i>{{ investResult.toLocaleString()}}
           </div>
         </div>
       </div>

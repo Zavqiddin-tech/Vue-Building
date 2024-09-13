@@ -5,10 +5,10 @@ import { convertDate } from "@/func/date";
 
 // store
 import { useInvestStore } from "@/stores/invest/invest";
-const {invest} = storeToRefs(useInvestStore())
-const { get_all_invest, delete_invest } = useInvestStore() 
-import { useModalStore } from '@/stores/modal';
-const {setModal, setUpdateModal, setNowId} = useModalStore()
+const { invest } = storeToRefs(useInvestStore());
+const { get_all_invest, delete_invest } = useInvestStore();
+import { useModalStore } from "@/stores/modal";
+const { setModal, setUpdateModal, setNowId } = useModalStore();
 
 //shadcn
 import {
@@ -22,16 +22,16 @@ import {
 } from "@/components/ui/table";
 
 const edit = async (id) => {
-  setModal(true)
-  setUpdateModal(true)
-  setNowId(id)
-}
+  setModal(true);
+  setUpdateModal(true);
+  setNowId(id);
+};
 
 const del = (id) => {
   if (confirm("O'chirilsinmi")) {
-    delete_invest(id)
+    delete_invest(id);
   }
-}
+};
 
 onMounted(() => {
   get_all_invest();
@@ -54,13 +54,15 @@ onMounted(() => {
       </TableHeader>
       <TableBody>
         <TableRow v-for="item in invest" class="hover:bg-black/10">
-          
           <TableCell>{{ item.name }}</TableCell>
-          <TableCell>$ {{ item.amount.toLocaleString() }}</TableCell>
+          <TableCell class="text-green-500">
+            <i class="fa-solid fa-dollar-sign pr-1 text-green-600"></i>
+            {{ item.amount.toLocaleString() }}
+          </TableCell>
           <TableCell>{{ item.selectDate }}</TableCell>
           <TableCell>{{ convertDate(item.createAt, 1) }}</TableCell>
           <TableCell>{{ item.createdBy.userName }}</TableCell>
-          
+
           <TableCell class="float-right">
             <div class="flex items-start gap-3">
               <div

@@ -7,8 +7,8 @@ import { convertDate } from "@/func/date";
 import { usePodvalStore } from "@/stores/podval/podval";
 const { podval } = storeToRefs(usePodvalStore());
 const { get_all_podval, delete_podval } = usePodvalStore();
-import { useModalStore } from '@/stores/modal';
-const {setModal, setUpdateModal, setNowId} = useModalStore()
+import { useModalStore } from "@/stores/modal";
+const { setModal, setUpdateModal, setNowId } = useModalStore();
 
 //shadcn
 import {
@@ -27,16 +27,16 @@ import {
 } from "@/components/ui/popover";
 
 const edit = async (id) => {
-  setModal(true)
-  setUpdateModal(true)
-  setNowId(id)
-}
+  setModal(true);
+  setUpdateModal(true);
+  setNowId(id);
+};
 
 const del = (id) => {
-  if(confirm("O'chirasizmi")) {
-    delete_podval(id)
+  if (confirm("O'chirasizmi")) {
+    delete_podval(id);
   }
-}
+};
 
 onMounted(() => {
   get_all_podval();
@@ -50,7 +50,7 @@ onMounted(() => {
       <TableHeader>
         <TableRow>
           <TableHead class="text-[16px]">Nomi</TableHead>
-          <TableHead class="text-[16px]">Miqdori</TableHead>
+          <TableHead class="text-[16px]">Narxi</TableHead>
           <TableHead class="text-[16px]">Qaysi kuni</TableHead>
           <TableHead class="text-[16px]">Kiritildi</TableHead>
           <TableHead class="text-[16px]">Author</TableHead>
@@ -63,13 +63,20 @@ onMounted(() => {
           <TableCell class="font-medium capitalize">
             {{ item.title }}
           </TableCell>
-          <TableCell>{{ item.price.toLocaleString() }}</TableCell>
+          <TableCell class="text-green-500">
+            <i class="fa-solid fa-money-bills pr-2 text-green-600"></i>
+            {{ item.price.toLocaleString() }}
+          </TableCell>
           <TableCell>{{ item.selectDate }}</TableCell>
           <TableCell>{{ convertDate(item.createAt, 1) }}</TableCell>
           <TableCell>{{ item.createdBy.userName }}</TableCell>
           <TableCell>
             <Popover>
-              <PopoverTrigger class=" p-2 bg-green-500 text-white rounded-lg shadow"> shu yerda</PopoverTrigger>
+              <PopoverTrigger
+                class="p-2 bg-green-500 text-white rounded-lg shadow"
+              >
+                shu yerda</PopoverTrigger
+              >
               <PopoverContent> {{ item.detail }} </PopoverContent>
             </Popover>
           </TableCell>
