@@ -34,6 +34,7 @@ import {
 import { Calendar } from "@/components/ui/calendar";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/toast/use-toast";
 const { toast } = useToast();
 
@@ -50,9 +51,11 @@ const add = () => {
       if (resDate.includes("undefined")) {
         update_salary(state.value);
         handleClose();
+        state.value = {};
       } else {
         update_salary({ ...state.value, selectDate: resDate });
         handleClose();
+        state.value = {};
       }
     } else {
       if (resDate.includes("undefined")) {
@@ -63,6 +66,7 @@ const add = () => {
       } else {
         new_salary({ ...state.value, selectDate: resDate });
         handleClose();
+        state.value = {};
       }
     }
   } else {
@@ -74,7 +78,6 @@ const add = () => {
 };
 
 const handleClose = () => {
-  state.value = {};
   setModal(false);
   setUpdateModal(false);
   setNowId("");
@@ -134,6 +137,14 @@ onMounted(() => {
         <div class="mb-4">
           <Label for="pay" class="text-right"> To'landi </Label>
           <Input class="mt-2" v-model="state.amount" type="number" id="pay" />
+        </div>
+        <div class="mb-4">
+          <Textarea
+            class="w-full mt-2"
+            v-model="state.detail"
+            id="detail"
+            placeholder="batafsil"
+          />
         </div>
         <div class="mb-4">
           <Calendar

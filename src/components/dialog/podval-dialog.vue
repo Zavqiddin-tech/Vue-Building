@@ -2,14 +2,12 @@
 import { ref, watch } from "vue";
 import { storeToRefs } from "pinia";
 
-
 import { usePodvalStore } from "@/stores/podval/podval";
 const { new_podval, update_podval, get_podval } = usePodvalStore();
 
 import { useModalStore } from "@/stores/modal";
 const { modal, updateModal, nowId } = storeToRefs(useModalStore());
 const { setModal, setUpdateModal, setNowId } = useModalStore();
-
 
 import { Button } from "@/components/ui/button";
 import {
@@ -27,7 +25,6 @@ import { Calendar } from "@/components/ui/calendar";
 import { useToast } from "@/components/ui/toast/use-toast";
 const { toast } = useToast();
 
-
 const state = ref({});
 const calendar = ref({});
 const add = () => {
@@ -42,9 +39,11 @@ const add = () => {
       if (resDate.includes("undefined")) {
         update_podval(state.value);
         handleClose();
+        state.value = {};
       } else {
         update_podval({ ...state.value, selectDate: resDate });
         handleClose();
+        state.value = {};
       }
     } else {
       if (resDate.includes("undefined")) {
@@ -55,6 +54,7 @@ const add = () => {
       } else {
         new_podval({ ...state.value, selectDate: resDate });
         handleClose();
+        state.value = {};
       }
     }
   } else {
@@ -66,7 +66,6 @@ const add = () => {
 };
 
 const handleClose = () => {
-  state.value = {};
   setModal(false);
   setUpdateModal(false);
   setNowId("");
@@ -105,13 +104,29 @@ watch(updateModal, async () => {
       </DialogHeader>
       <div>
         <div class="mb-4">
-          <Input class="mt-2" v-model="state.title" id="title" placeholder="Nomini kiriting"/>
+          <Input
+            class="mt-2"
+            v-model="state.title"
+            id="title"
+            placeholder="Nomini kiriting"
+          />
         </div>
         <div class="mb-4">
-          <Input class="mt-2" v-model="state.price" type="number" id="price" placeholder="Narxini kiriting"/>
+          <Input
+            class="mt-2"
+            v-model="state.price"
+            type="number"
+            id="price"
+            placeholder="Narxini kiriting"
+          />
         </div>
         <div class="mb-4">
-          <Textarea class="w-full mt-2" v-model="state.detail" id="detail" placeholder="batafsil"/>
+          <Textarea
+            class="w-full mt-2"
+            v-model="state.detail"
+            id="detail"
+            placeholder="batafsil"
+          />
         </div>
         <div class="mb-4">
           <Calendar

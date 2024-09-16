@@ -60,15 +60,16 @@ const routes = [
   // Qo'shimcha marshrutlar qo'shishingiz mumkin
 ];
 const managerRoutes = [
+  { name: "Qavat", path: "/floor", icon: "fa-solid fa-arrow-right-to-city" },
   { name: "Podval", path: "/podval", icon: "fa-solid fa-store" },
 ];
 
 // Hozirgi marshrutni olish
-const route = useRoute();
+const router = useRoute();
 
 // Faol marshrutni tekshirish
 const isActiveRoute = (path) => {
-  return route.path === path;
+  return router.path === path;
 };
 
 onMounted(async () => {

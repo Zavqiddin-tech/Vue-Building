@@ -31,9 +31,11 @@ const add = () => {
     if (updateModal.value) {
       update_floor(state.value)
       handleClose()
+      state.value = {};
     } else {
       new_floor(state.value)
       handleClose()
+      state.value = {};
     }
 	} else {
 		toast({
@@ -45,7 +47,6 @@ const add = () => {
 
 
 const handleClose = () => {
-  state.value = {}
     setModal(false)
     setUpdateModal(false)
     setNowId('')

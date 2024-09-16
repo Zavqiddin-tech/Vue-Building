@@ -24,12 +24,12 @@ const router = createRouter({
         {
           path: "/floor",
           component: () => import("@/pages/floor.vue"),
-          meta: { secure: true, position: true },
+          meta: { secure: true },
         },
         {
           path: "/floor/:id",
           component: () => import("@/pages/more/floor-detail.vue"),
-          meta: { secure: true, position: true },
+          meta: { secure: true },
         },
         {
           path: "/workers",

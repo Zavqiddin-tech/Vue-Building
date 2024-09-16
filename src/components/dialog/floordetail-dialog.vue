@@ -41,9 +41,11 @@ const add = () => {
       if (resDate.includes("undefined")) {
         update_each(state.value, routeId);
         handleClose();
+        state.value = {};
       } else {
         update_each({ ...state.value, selectDate: resDate }, routeId);
         handleClose();
+        state.value = {};
       }
     } else {
       if (resDate.includes("undefined")) {
@@ -54,6 +56,7 @@ const add = () => {
       } else {
         new_each({ ...state.value, createdFloor: routeId, selectDate: resDate }, routeId);
         handleClose();
+        state.value = {};
       }
     }
   } else {
@@ -65,7 +68,6 @@ const add = () => {
 };
 
 const handleClose = () => {
-  state.value = {};
   setModal(false);
   setUpdateModal(false);
   setNowId("");

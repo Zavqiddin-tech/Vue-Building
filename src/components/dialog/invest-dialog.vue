@@ -47,9 +47,11 @@ const add = () => {
       if (resDate.includes("undefined")) {
         update_invest(state.value);
         handleClose();
+        state.value = {};
       } else {
         update_invest({ ...state.value, selectDate: resDate });
         handleClose();
+        state.value = {};
       }
     } else {
       if (resDate.includes("undefined")) {
@@ -60,6 +62,7 @@ const add = () => {
       } else {
         new_invest({ ...state.value, selectDate: resDate });
         handleClose();
+        state.value = {};
       }
     }
   } else {
@@ -71,7 +74,6 @@ const add = () => {
 };
 
 const handleClose = () => {
-  state.value = {};
   setModal(false);
   setUpdateModal(false);
   setNowId("");

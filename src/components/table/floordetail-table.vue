@@ -49,7 +49,7 @@ onMounted(() => {
 <template>
   <div>
     <Table v-if="Array.isArray(each) && each.length > 0">
-      <TableCaption>katlavan xarajatlari</TableCaption>
+      <TableCaption>qavat xarajatlari</TableCaption>
       <TableHeader>
         <TableRow>
           <TableHead class="text-[16px]">Nomi</TableHead>

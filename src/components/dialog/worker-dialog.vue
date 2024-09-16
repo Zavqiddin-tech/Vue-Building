@@ -27,13 +27,15 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/toast/use-toast";
 const { toast } = useToast();
 const add = () => {
-	if(state.value.fName && state.value.lName && state.value.phone) {
+	if(state.value.fName && state.value.lName) {
     if (updateModal.value) {
       update_worker(state.value)
       handleClose()
+      state.value = {}
     } else {
       new_worker(state.value)
       handleClose()
+      state.value = {}
     }
 	} else {
 		toast({
@@ -45,7 +47,6 @@ const add = () => {
 
 
 const handleClose = () => {
-  state.value = {}
     setModal(false)
     setUpdateModal(false)
     setNowId('')
@@ -81,15 +82,19 @@ watch(updateModal, async () => {
       </DialogHeader>
       <div class="grid gap-4 py-4">
         <div class="grid grid-cols-4 items-center gap-4">
-          <Label for="name" class="text-right"> Ismi </Label>
+          <Label class="text-right"> Ismi </Label>
           <Input class="col-span-3" v-model="state.fName"/>
         </div>
         <div class="grid grid-cols-4 items-center gap-4">
-          <Label for="username" class="text-right"> Familyasi </Label>
+          <Label class="text-right"> Familyasi </Label>
           <Input class="col-span-3" v-model="state.lName"/>
         </div>
         <div class="grid grid-cols-4 items-center gap-4">
-          <Label for="username" class="text-right"> Telefon </Label>
+          <Label class="text-right"> Lavozim </Label>
+          <Input class="col-span-3" v-model="state.position"/>
+        </div>
+        <div class="grid grid-cols-4 items-center gap-4">
+          <Label class="text-right"> Telefon </Label>
           <Input class="col-span-3" v-model="state.phone"/>
         </div>
       </div>

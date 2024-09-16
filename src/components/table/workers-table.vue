@@ -45,6 +45,7 @@ onMounted(() => {
     <TableHeader>
       <TableRow>
         <TableHead>Ism familya </TableHead>
+        <TableHead>Lavozim</TableHead>
         <TableHead>Qo'shildi</TableHead>
         <TableHead>Telefon</TableHead>
         <TableHead>Author</TableHead>
@@ -56,6 +57,7 @@ onMounted(() => {
         <TableCell class="font-medium capitalize">
           {{ item.fName }} {{ item.lName }}
         </TableCell>
+        <TableCell>{{ item.position}}</TableCell>
         <TableCell>{{ convertDate(item.createAt, 1) }}</TableCell>
         <TableCell>{{ item.phone }}</TableCell>
         <TableCell>{{ item.createdWorker.userName }}</TableCell>

@@ -3,7 +3,7 @@ import { ref, onMounted } from "vue";
 import cookies from "vue-cookies";
 import { convertDate } from "@/func/date";
 import { useAuthStore } from "@/stores/auth/auth";
-const { checkAdmin, get_admin } = useAuthStore();
+const { get_admin } = useAuthStore();
 const state = ref({ fName: "", lName: "" });
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -28,8 +28,8 @@ onMounted(async () => {
 
 <template>
   <div class="flex justify-between items-center">
-    <div class="text-2xl font-bold">
-      <div>Life Town building</div>
+    <div class="text-2xl font-semibold">
+      <div class="username capitalize">hello, {{ state.fName }}</div>
       <div class="pt-2 text-base font-light">
         Qurilish boshqaruvi va hisobotlar jamlanmasi
       </div>
@@ -86,3 +86,13 @@ onMounted(async () => {
     </div>
   </div>
 </template>
+
+
+<style lang="scss">
+.username {
+  font-family: "Poppins", sans-serif;
+  background: -webkit-linear-gradient(right, #131729, #603cff);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+</style>

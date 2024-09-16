@@ -20,6 +20,11 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
 const edit = async (id) => {
   setModal(true);
@@ -48,6 +53,7 @@ onMounted(() => {
           <TableHead class="text-[16px]">Narxi</TableHead>
           <TableHead class="text-[16px]">Qaysi oy uchun</TableHead>
           <TableHead class="text-[16px]">Kiritildi</TableHead>
+          <TableHead class="text-[16px]">Batafsil</TableHead>
           <TableHead class="text-[16px]">Author</TableHead>
           <TableHead class="text-[16px] text-right"> edit </TableHead>
         </TableRow>
@@ -63,6 +69,16 @@ onMounted(() => {
           </TableCell>
           <TableCell>{{ item.selectDate }}</TableCell>
           <TableCell>{{ convertDate(item.createAt, 1) }}</TableCell>
+          <TableCell>
+            <Popover>
+              <PopoverTrigger
+                class="p-2 bg-green-500 text-white rounded-lg shadow"
+              >
+                shu yerda</PopoverTrigger
+              >
+              <PopoverContent> {{ item.detail }} </PopoverContent>
+            </Popover>
+          </TableCell>
           <TableCell>{{ item.createdBy.userName }}</TableCell>
 
           <TableCell class="float-right">

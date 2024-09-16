@@ -46,7 +46,7 @@ onMounted(() => {
 <template>
   <div>
 		<Table v-if="Array.isArray(floor) && floor.length > 0">
-    <TableCaption>hamma ishchilar ro'xati</TableCaption>
+    <TableCaption>qavatlar ro'yxati</TableCaption>
     <TableHeader>
       <TableRow>
         <TableHead>Qavat nomi</TableHead>

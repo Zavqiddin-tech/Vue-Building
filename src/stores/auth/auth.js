@@ -48,12 +48,10 @@ export const useAuthStore = defineStore("auth", () => {
     if (cookies.isKey("build-token")) {
       tokenStore.setToken(cookies.get("build-token"));
     }
-    let res = await api.getAxios({
+    await api.getAxios({
       url: "auth/checkuser",
     });
-    if (res.status == 200) {
-      console.log("success");
-    }
+   
   };
   const checkAdmin = async () => {
     if (cookies.isKey("build-token")) {
