@@ -67,7 +67,11 @@ onMounted(() => {
             <i class="fa-solid fa-money-bills pr-2 text-green-600"></i>
             {{ item.amount.toLocaleString() }}
           </TableCell>
-          <TableCell>{{ item.selectDate }}</TableCell>
+          <TableCell
+            ><span class="py-1 px-3 rounded-full bg-lime-300 shadow-lg">{{
+              item.selectDate
+            }}</span></TableCell
+          >
           <TableCell>{{ convertDate(item.createAt, 1) }}</TableCell>
           <TableCell>
             <Popover>
@@ -79,7 +83,12 @@ onMounted(() => {
               <PopoverContent> {{ item.detail }} </PopoverContent>
             </Popover>
           </TableCell>
-          <TableCell>{{ item.createdBy.userName }}</TableCell>
+          <TableCell>
+            <span
+              class="inline-flex items-center rounded-md bg-pink-50 px-3 py-2 text-sm font-medium text-pink-700 ring-1 ring-inset ring-pink-700/10"
+              >{{ item.createdBy.userName }}
+            </span>
+          </TableCell>
 
           <TableCell class="float-right">
             <div class="flex items-start gap-3">

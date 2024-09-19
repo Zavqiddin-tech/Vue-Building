@@ -1,9 +1,9 @@
 <script setup>
-import reportCard from '@/components/dashboard/report-card.vue';
+import reportCard from "@/components/dashboard/report-card.vue";
 </script>
 
 <template>
-	<div>
-		<reportCard />
-	</div>
+  <div>
+    <reportCard />
+  </div>
 </template>

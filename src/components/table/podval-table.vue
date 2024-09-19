@@ -53,8 +53,8 @@ onMounted(() => {
           <TableHead class="text-[16px]">Narxi</TableHead>
           <TableHead class="text-[16px]">Qaysi kuni</TableHead>
           <TableHead class="text-[16px]">Kiritildi</TableHead>
-          <TableHead class="text-[16px]">Author</TableHead>
           <TableHead class="text-[16px]">Batafsil</TableHead>
+          <TableHead class="text-[16px]">Author</TableHead>
           <TableHead class="text-[16px] text-right"> edit </TableHead>
         </TableRow>
       </TableHeader>
@@ -67,9 +67,12 @@ onMounted(() => {
             <i class="fa-solid fa-money-bills pr-2 text-green-600"></i>
             {{ item.price.toLocaleString() }}
           </TableCell>
-          <TableCell>{{ item.selectDate }}</TableCell>
+          <TableCell
+            ><span class="py-1 px-3 rounded-full bg-lime-300 shadow-lg">{{
+              item.selectDate
+            }}</span></TableCell
+          >
           <TableCell>{{ convertDate(item.createAt, 1) }}</TableCell>
-          <TableCell>{{ item.createdBy.userName }}</TableCell>
           <TableCell>
             <Popover>
               <PopoverTrigger
@@ -79,6 +82,12 @@ onMounted(() => {
               >
               <PopoverContent> {{ item.detail }} </PopoverContent>
             </Popover>
+          </TableCell>
+          <TableCell>
+            <span
+              class="inline-flex items-center rounded-md bg-pink-50 px-3 py-2 text-sm font-medium text-pink-700 ring-1 ring-inset ring-pink-700/10"
+              >{{ item.createdBy.userName }}
+            </span>
           </TableCell>
           <TableCell class="float-right">
             <div class="flex items-start gap-3">

@@ -2,10 +2,14 @@
 import { ref, onMounted } from "vue";
 import cookies from "vue-cookies";
 import { convertDate } from "@/func/date";
+
+// store
 import { useAuthStore } from "@/stores/auth/auth";
 const { get_admin } = useAuthStore();
 const state = ref({ fName: "", lName: "" });
 
+
+// shadcn
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   Popover,
@@ -13,6 +17,8 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
+
+// func
 const LogOut = () => {
   cookies.remove("build-token");
   location.reload();
@@ -39,7 +45,7 @@ onMounted(async () => {
         {{ convertDate(new Date(), 1) }}
       </div>
       <div
-        class="w-10 h-10 text-[20px] flex justify-center items-center rounded-md bg-gray-200"
+        class="w-10 h-10  flex justify-center items-center rounded-md bg-gray-200"
       >
         <i class="fa-solid fa-magnifying-glass"></i>
       </div>

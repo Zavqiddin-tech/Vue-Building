@@ -49,7 +49,7 @@ onMounted(() => {
           <TableHead class="text-[16px]">Qaysi kuni</TableHead>
           <TableHead class="text-[16px]">Kiritildi</TableHead>
           <TableHead class="text-[16px]">Author</TableHead>
-          <TableHead class="text-[16px] text-right"> edit </TableHead>
+          <!-- <TableHead class="text-[16px] text-right"> edit </TableHead> -->
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -59,12 +59,21 @@ onMounted(() => {
             <i class="fa-solid fa-dollar-sign pr-1 text-green-600"></i>
             {{ item.amount.toLocaleString() }}
           </TableCell>
-          <TableCell>{{ item.selectDate }}</TableCell>
+          <TableCell
+            ><span class="py-1 px-3 rounded-full bg-lime-300 shadow-lg">{{
+              item.selectDate
+            }}</span></TableCell
+          >
           <TableCell>{{ convertDate(item.createAt, 1) }}</TableCell>
-          <TableCell>{{ item.createdBy.userName }}</TableCell>
+          <TableCell>
+            <span
+              class="inline-flex items-center rounded-md bg-pink-50 px-3 py-2 text-sm font-medium text-pink-700 ring-1 ring-inset ring-pink-700/10"
+              >{{ item.createdBy.userName }}
+            </span>
+          </TableCell>
 
           <TableCell class="float-right">
-            <div class="flex items-start gap-3">
+            <!-- <div class="flex items-start gap-3">
               <div
                 @click="edit(item.id)"
                 class="cursor-pointer hover:text-blue-500 text-lg"
@@ -77,7 +86,7 @@ onMounted(() => {
               >
                 <i class="fa-solid fa-trash"></i>
               </div>
-            </div>
+            </div> -->
           </TableCell>
         </TableRow>
       </TableBody>
