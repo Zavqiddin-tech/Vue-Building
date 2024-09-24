@@ -41,32 +41,34 @@ const { toast } = useToast();
 const state = ref({});
 const calendar = ref({});
 const add = () => {
-  let resDate = "";
+  let resDate = null;
+  let newDay = String(calendar.value.date?.day).padStart(2, "0");
   let newMonth = String(calendar.value.date?.month).padStart(2, "0");
   let newYear = String(calendar.value.date?.year);
-  resDate = `${newMonth}-${newYear}`;
+  resDate = new Date(`${newYear}-${newMonth}-${newDay}`);
+
 
   if (state.value.worker && state.value.amount) {
     if (updateModal.value) {
-      if (resDate.includes("undefined")) {
-        update_salary(state.value);
+      if (resDate instanceof Date && !isNaN(resDate)) {
+        update_salary({ ...state.value, selectDate: resDate });
         handleClose();
         state.value = {};
       } else {
-        update_salary({ ...state.value, selectDate: resDate });
+        update_salary(state.value);
         handleClose();
         state.value = {};
       }
     } else {
-      if (resDate.includes("undefined")) {
+      if (resDate && resDate instanceof Date && !isNaN(resDate)) {
+        new_salary({ ...state.value, selectDate: resDate });
+        handleClose();
+        state.value = {};
+      } else {
         toast({
           title: "E'tibor bering",
           description: "Sanani tanlang !",
         });
-      } else {
-        new_salary({ ...state.value, selectDate: resDate });
-        handleClose();
-        state.value = {};
       }
     }
   } else {

@@ -28,7 +28,7 @@ export const useDollarStore = defineStore("dollar", () => {
       })
       .then((res) => {
         dollar.value = [...res.data];
-      });
+      })
   };
 
   // Bitta ishchini olish

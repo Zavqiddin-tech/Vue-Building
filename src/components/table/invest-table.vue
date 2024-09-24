@@ -59,11 +59,20 @@ onMounted(() => {
             <i class="fa-solid fa-dollar-sign pr-1 text-green-600"></i>
             {{ item.amount.toLocaleString() }}
           </TableCell>
-          <TableCell
-            ><span class="py-1 px-3 rounded-full bg-lime-300 shadow-lg">{{
-              item.selectDate
-            }}</span></TableCell
-          >
+          <TableCell>
+            <span
+              v-if="convertDate(item.selectDate, 1)"
+              class="py-1 px-3 rounded-full bg-lime-300 shadow-lg"
+            >
+              {{ convertDate(item.selectDate, 1) }}
+            </span>
+            <span
+              v-else
+              class="py-1 px-3 text-white rounded-full bg-red-400 shadow-lg"
+            >
+              {{ item.selectDate }}
+            </span>
+          </TableCell>
           <TableCell>{{ convertDate(item.createAt, 1) }}</TableCell>
           <TableCell>
             <span
@@ -73,7 +82,7 @@ onMounted(() => {
           </TableCell>
 
           <TableCell class="float-right">
-            <!-- <div class="flex items-start gap-3">
+            <div class="flex items-start gap-3">
               <div
                 @click="edit(item.id)"
                 class="cursor-pointer hover:text-blue-500 text-lg"
@@ -86,7 +95,7 @@ onMounted(() => {
               >
                 <i class="fa-solid fa-trash"></i>
               </div>
-            </div> -->
+            </div>
           </TableCell>
         </TableRow>
       </TableBody>

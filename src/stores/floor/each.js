@@ -16,6 +16,7 @@ export const useEachStore = defineStore("each", () => {
         url: `each/all/${id}`,
       })
       .then((res) => {
+        console.log(res.data);
         each.value = [...res.data];
       });
   };

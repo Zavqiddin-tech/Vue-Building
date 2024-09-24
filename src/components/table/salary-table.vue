@@ -67,11 +67,20 @@ onMounted(() => {
             <i class="fa-solid fa-money-bills pr-2 text-green-600"></i>
             {{ item.amount.toLocaleString() }}
           </TableCell>
-          <TableCell
-            ><span class="py-1 px-3 rounded-full bg-lime-300 shadow-lg">{{
-              item.selectDate
-            }}</span></TableCell
-          >
+          <TableCell>
+            <span
+              v-if="convertDate(item.selectDate, 1)"
+              class="py-1 px-3 rounded-full bg-lime-300 shadow-lg"
+            >
+              {{ convertDate(item.selectDate, 1) }}
+            </span>
+            <span
+              v-else
+              class="py-1 px-3 text-white rounded-full bg-red-400 shadow-lg"
+            >
+              {{ item.selectDate }}
+            </span>
+          </TableCell>
           <TableCell>{{ convertDate(item.createAt, 1) }}</TableCell>
           <TableCell>
             <Popover>

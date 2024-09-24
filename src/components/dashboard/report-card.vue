@@ -1,6 +1,7 @@
 <script setup>
 import { onMounted } from "vue";
 import { storeToRefs } from "pinia";
+import { convertDate } from "@/func/date";
 
 // Components
 import dollarDialog from "../dialog/dollar-dialog.vue";
@@ -35,6 +36,7 @@ onMounted(() => {
   useWorkersStore().get_worker_result();
   useExitStore().get_exit_result();
   useEachStore().get_each_result();
+  useDollarStore().get_all_dollar();
 });
 </script>
 
@@ -50,7 +52,7 @@ onMounted(() => {
             >{{ investResult.toLocaleString() }}
           </div>
         </div>
-        <div >
+        <div>
           <barChart />
         </div>
       </div>
@@ -61,23 +63,30 @@ onMounted(() => {
         <div class="flex justify-between">
           <div>
             <div>Valyuta</div>
-            <div class="pt-2 text-2xl font-bold">
-              <i class="fa-solid fa-dollar-sign"></i> 1 = <span v-if="dollar[0]">{{ Number(dollar[0].kurs).toLocaleString() }}</span> <span class="text-base font-normal"> sum</span>
+            <div v-if="Array.isArray(dollar) && dollar.length > 0" class="pt-1 pb-4 text-2xl font-bold">
+              <div class="text-base font-normal">{{ convertDate(dollar[0].selectDate, 1) }}</div>
+              <i class="fa-solid fa-dollar-sign"></i> 1 =
+              <span>{{ Number(dollar[0].kurs).toLocaleString() }}</span>
+              <span class="text-base font-normal"> sum</span>
+            </div>
+            <div v-else class="py-3 text-pink-500 animate-pulse">
+              hali kiritilmagan
             </div>
           </div>
-          <dollarBox />
-          <dollarDialog />
+          <div class="flex flex-col gap-5">
+            <dollarDialog />
+            <dollarBox v-if="Array.isArray(dollar) && dollar.length > 0"/>
+          </div>
         </div>
         <div>
-          <lineChart/>
+          <lineChart />
         </div>
-       
       </div>
     </div>
     <!-- Qavatlar -->
     <div class="w-full mb-6 px-3">
       <div class="px-3 py-4 gap-4 bg-white rounded-xl">
-        <floorTabs :result="eachResult"/>
+        <floorTabs :result="eachResult" />
       </div>
     </div>
     <!-- Oylik maosh -->
