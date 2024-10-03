@@ -4,7 +4,7 @@ import { useApiStore } from "@/stores/api/api";
 
 export const usePodvalStore = defineStore("podval", () => {
   const podval = ref([]);
-  const podvalResult = ref(0)
+  const podvalResult = ref({})
 
   const api = useApiStore();
 

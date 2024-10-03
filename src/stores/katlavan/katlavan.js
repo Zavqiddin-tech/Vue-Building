@@ -5,7 +5,7 @@ import { data } from "autoprefixer";
 
 export const useKatlavanStore = defineStore("katlavan", () => {
   const katlavan = ref([]);
-  const katlavanResult = ref(0);
+  const katlavanResult = ref({});
 
   const api = useApiStore();
 

@@ -60,7 +60,7 @@ onMounted(() => {
       </TableHeader>
       <TableBody>
         <TableRow v-for="item in podval" class="hover:bg-black/10">
-          <TableCell class="font-medium capitalize">
+          <TableCell class="flex  items-center gap-1 font-medium capitalize">
             {{ item.title }}
           </TableCell>
           <TableCell class="text-green-500">

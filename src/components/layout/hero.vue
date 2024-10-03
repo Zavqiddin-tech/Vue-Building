@@ -97,8 +97,6 @@ onMounted(async () => {
 <style lang="scss">
 .username {
   font-family: "Poppins", sans-serif;
-  background: -webkit-linear-gradient(right, #131729, #603cff);
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #2b3674;
 }
 </style>

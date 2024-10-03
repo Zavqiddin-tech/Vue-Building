@@ -4,7 +4,7 @@ import { useApiStore } from "@/stores/api/api";
 
 export const useEachStore = defineStore("each", () => {
   const each = ref([]);
-  const eachResult = ref(0)
+  const eachResult = ref({})
 
   const api = useApiStore();
 

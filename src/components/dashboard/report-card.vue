@@ -45,11 +45,15 @@ onMounted(() => {
     <!-- Sarmoya -->
     <div class="w-6/12 mb-6 px-3">
       <div class="px-3 py-4 bg-white rounded-xl">
-        <div>
+        <div v-if="Object.keys(investResult).length">
           <div>Sarmoya</div>
-          <div class="pt-2 text-2xl font-bold">
+          <div v-if="investResult.total" class="pt-2 text-2xl font-bold">
             <i class="fa-solid fa-dollar-sign pr-1"></i
-            >{{ investResult.toLocaleString() }}
+            >{{ investResult.total.toLocaleString() }}
+          </div>
+          <div v-if="investResult.convert" class="pt-2 text-xl ">
+            {{ investResult.convert.toLocaleString() }}
+            <span class="text-base"> sum</span>
           </div>
         </div>
         <div>
@@ -63,8 +67,13 @@ onMounted(() => {
         <div class="flex justify-between">
           <div>
             <div>Valyuta</div>
-            <div v-if="Array.isArray(dollar) && dollar.length > 0" class="pt-1 pb-4 text-2xl font-bold">
-              <div class="text-base font-normal">{{ convertDate(dollar[0].selectDate, 1) }}</div>
+            <div
+              v-if="Array.isArray(dollar) && dollar.length > 0"
+              class="pt-1 pb-4 text-2xl font-bold"
+            >
+              <div class="text-base font-normal">
+                {{ convertDate(dollar[0].selectDate, 1) }}
+              </div>
               <i class="fa-solid fa-dollar-sign"></i> 1 =
               <span>{{ Number(dollar[0].kurs).toLocaleString() }}</span>
               <span class="text-base font-normal"> sum</span>
@@ -75,7 +84,7 @@ onMounted(() => {
           </div>
           <div class="flex flex-col gap-5">
             <dollarDialog />
-            <dollarBox v-if="Array.isArray(dollar) && dollar.length > 0"/>
+            <dollarBox v-if="Array.isArray(dollar) && dollar.length > 0" />
           </div>
         </div>
         <div>
@@ -116,9 +125,15 @@ onMounted(() => {
         </div>
         <div>
           <div>Katlavan</div>
-          <div class="pt-2 text-2xl font-bold">
-            {{ katlavanResult.toLocaleString()
-            }}<span class="text-base font-normal"> sum</span>
+          <div v-if="Object.keys(katlavanResult).length">
+            <div v-if="katlavanResult.total" class="pt-2 text-2xl font-bold">
+              {{ katlavanResult.total.toLocaleString() }}
+              <span class="text-base font-normal"> sum</span>
+            </div>
+            <div v-if="katlavanResult.convert" class="pt-2 text-xl text-green-500">
+              <i class="fa-solid fa-dollar-sign pr-1"></i>
+              {{ katlavanResult.convert.toLocaleString() }}
+            </div>
           </div>
         </div>
       </div>
@@ -133,9 +148,15 @@ onMounted(() => {
         </div>
         <div>
           <div>Podval</div>
-          <div class="pt-2 text-2xl font-bold">
-            {{ podvalResult.toLocaleString()
-            }}<span class="text-base font-normal"> sum</span>
+          <div v-if="Object.keys(podvalResult).length">
+            <div v-if="podvalResult.total" class="pt-2 text-2xl font-bold">
+              {{ podvalResult.total.toLocaleString() }}
+              <span class="text-base font-normal"> sum</span>
+            </div>
+            <div v-if="podvalResult.convert" class="pt-2 text-xl text-green-500">
+              <i class="fa-solid fa-dollar-sign pr-1"></i>
+              {{ podvalResult.convert.toLocaleString() }}
+            </div>
           </div>
         </div>
       </div>
@@ -167,9 +188,15 @@ onMounted(() => {
         </div>
         <div>
           <div>Boshqalar</div>
-          <div class="pt-2 text-2xl font-bold">
-            {{ exitResult.toLocaleString()
-            }}<span class="text-base font-normal"> sum</span>
+          <div v-if="Object.keys(exitResult).length">
+            <div v-if="exitResult.total" class="pt-2 text-2xl font-bold">
+              {{ exitResult.total.toLocaleString() }}
+              <span class="text-base font-normal"> sum</span>
+            </div>
+            <div v-if="exitResult.convert" class="pt-2 text-xl text-green-500">
+              <i class="fa-solid fa-dollar-sign pr-1"></i>
+              {{ exitResult.convert.toLocaleString() }}
+            </div>
           </div>
         </div>
       </div>

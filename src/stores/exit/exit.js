@@ -4,7 +4,7 @@ import { useApiStore } from "@/stores/api/api";
 
 export const useExitStore = defineStore("exit", () => {
   const exit = ref([]);
-  const exitResult = ref(0)
+  const exitResult = ref({})
 
   const api = useApiStore();
 
@@ -26,6 +26,7 @@ export const useExitStore = defineStore("exit", () => {
           url: "exit/result",
         })
         .then((res) => {
+          console.log(res.data);
           exitResult.value = res.data
         });
     };

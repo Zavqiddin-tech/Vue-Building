@@ -30,9 +30,15 @@ const props = defineProps(["result"]);
         </div>
         <div>
           <div>1 - qavat</div>
-          <div class="pt-2 text-2xl font-bold">
-            {{ result.toLocaleString()
-            }}<span class="text-base font-normal"> sum</span>
+          <div v-if="Object.keys(result).length">
+            <div v-if="result.total" class="pt-2 text-2xl font-bold">
+              {{ result.total.toLocaleString() }}
+              <span class="text-base font-normal"> sum</span>
+            </div>
+            <div v-if="result.convert" class="pt-2 text-xl text-green-500">
+              <i class="fa-solid fa-dollar-sign pr-1"></i>
+              {{ result.convert.toLocaleString() }}
+            </div>
           </div>
         </div>
       </div>
