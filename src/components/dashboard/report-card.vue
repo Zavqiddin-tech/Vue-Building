@@ -56,9 +56,6 @@ onMounted(() => {
             <span class="text-base"> sum</span>
           </div>
         </div>
-        <div>
-          <barChart />
-        </div>
       </div>
     </div>
     <!-- Valyuta -->
@@ -86,9 +83,6 @@ onMounted(() => {
             <dollarDialog />
             <dollarBox v-if="Array.isArray(dollar) && dollar.length > 0" />
           </div>
-        </div>
-        <div>
-          <lineChart />
         </div>
       </div>
     </div>

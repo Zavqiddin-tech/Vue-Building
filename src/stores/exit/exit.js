@@ -26,7 +26,6 @@ export const useExitStore = defineStore("exit", () => {
           url: "exit/result",
         })
         .then((res) => {
-          console.log(res.data);
           exitResult.value = res.data
         });
     };

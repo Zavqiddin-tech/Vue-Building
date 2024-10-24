@@ -83,7 +83,7 @@ onMounted(() => {
 
           <TableCell class="float-right">
             <div class="flex items-start gap-3">
-              <div
+              <!-- <div
                 @click="edit(item.id)"
                 class="cursor-pointer hover:text-blue-500 text-lg"
               >
@@ -94,7 +94,7 @@ onMounted(() => {
                 class="cursor-pointer hover:text-blue-500 text-lg"
               >
                 <i class="fa-solid fa-trash"></i>
-              </div>
+              </div> -->
             </div>
           </TableCell>
         </TableRow>

@@ -15,3 +15,13 @@ export const convertDate = (date, type = 0) => {
       : `${addZero(d.getHours())}:${addZero(d.getMinutes())}`;
   }
 };
+
+export const todayDate = (d, type = 0) => {
+  return type == 0
+    ? `${addZero(d.getHours())}:${addZero(d.getMinutes())} | ${addZero(
+        d.getDate()
+      )}.${addZero(d.getMonth() + 1)}.${d.getFullYear()}`
+    : type == 1
+    ? `${addZero(d.getDate())}.${addZero(d.getMonth() + 1)}.${d.getFullYear()}`
+    : `${addZero(d.getHours())}:${addZero(d.getMinutes())}`;
+};

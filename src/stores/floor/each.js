@@ -10,13 +10,11 @@ export const useEachStore = defineStore("each", () => {
 
   // Barcha ishchilarni olish
   const get_all_each = async (id) => {
-    console.log(id);
     await api
       .getAxios({
         url: `each/all/${id}`,
       })
       .then((res) => {
-        console.log(res.data);
         each.value = [...res.data];
       });
   };
@@ -50,6 +48,12 @@ export const useEachStore = defineStore("each", () => {
       url: `each/one/${id}`,
     });
   };
+  
+  const get_oneEach_result = async (id) => {
+    return await api.getAxios({
+      url: `each/one/result/${id}`,
+    });
+  };
 
   // Ma'lumotni yangilab saqlash
   const update_each = async (data, routeId) => {
@@ -81,6 +85,7 @@ export const useEachStore = defineStore("each", () => {
     eachResult,
     get_all_each,
     get_each_result,
+    get_oneEach_result,
     get_each,
     new_each,
     update_each,

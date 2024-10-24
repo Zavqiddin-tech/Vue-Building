@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import cookies from "vue-cookies";
-import { convertDate } from "@/func/date";
+import { todayDate } from "@/func/date";
 
 // store
 import { useAuthStore } from "@/stores/auth/auth";
@@ -42,7 +42,7 @@ onMounted(async () => {
     </div>
     <div class="flex items-center gap-4">
       <div>
-        {{ convertDate(new Date(), 1) }}
+        {{ todayDate(new Date()) }}
       </div>
       <div
         class="w-10 h-10  flex justify-center items-center rounded-md bg-gray-200"
@@ -53,12 +53,11 @@ onMounted(async () => {
         <PopoverTrigger>
           <Avatar class="bg-[#603cff]">
             <AvatarImage
-              src="https://github.com/radix-vue.png"
               alt="@radix-vue"
             />
             <AvatarFallback
               ><span class="text-base text-white font-medium uppercase"
-                >{{ state.fName[0] }} {{ state.lName[0] }}</span
+                >{{ state.fName[0] }}{{ state.lName[0] }}</span
               ></AvatarFallback
             >
           </Avatar>

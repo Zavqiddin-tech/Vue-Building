@@ -97,7 +97,7 @@ onMounted(() => {
           </td>
 
           <td class="float-end py-3">
-            <div class="flex items-start gap-3">
+            <!-- <div class="flex items-start gap-3">
               <div
                 @click="edit(item.id)"
                 class="cursor-pointer hover:text-blue-500 text-lg"
@@ -110,7 +110,7 @@ onMounted(() => {
               >
                 <i class="fa-solid fa-trash"></i>
               </div>
-            </div>
+            </div> -->
           </td>
         </tr>
       </tbody>

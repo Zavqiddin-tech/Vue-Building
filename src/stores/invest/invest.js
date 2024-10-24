@@ -15,7 +15,6 @@ export const useInvestStore = defineStore("invest", () => {
         url: "invest/all",
       })
       .then((res) => {
-        console.log(res.data);
         invest.value = [...res.data];
       });
   };
