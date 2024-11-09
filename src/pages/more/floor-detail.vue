@@ -4,6 +4,7 @@ import { useRoute } from "vue-router";
 const routeId = useRoute().params.id;
 import floordetailDialog from "@/components/dialog/floordetail-dialog.vue";
 import floordetailTable from "@/components/table/floordetail-table.vue";
+import eachMonth from "../month/each-month.vue";
 
 import { useFloorStore } from "@/stores/floor/floor";
 import { useEachStore } from "@/stores/floor/each";
@@ -28,6 +29,7 @@ onMounted(async () => {
       <span class="text-6xl">{{ oneFloor.floorName }}</span> - qavat
     </div>
     <div>
+      <eachMonth />
       <floordetailDialog />
     </div>
   </div>
