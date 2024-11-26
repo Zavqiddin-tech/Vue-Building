@@ -4,12 +4,12 @@ import { storeToRefs } from "pinia";
 
 //store
 import { useModalStore } from "@/stores/modal";
+import { useClientStore } from "@/stores/sale/client";
 const { modal, updateModal, nowId } = storeToRefs(useModalStore());
 const { setModal, setUpdateModal, setNowId } = useModalStore();
-import { useFloorStore } from "@/stores/floor/floor";
-const { new_floor, get_floor, update_floor } = useFloorStore();
+const { new_client, update_client, get_client } = useClientStore();
 
-const state = ref({});
+// shadcn
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -24,14 +24,22 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/toast/use-toast";
 const { toast } = useToast();
+// shadcn
+
+const state = ref({});
 const add = () => {
-  if (state.value.floorName) {
+  if (
+    state.value.fName &&
+    state.value.lName &&
+    state.value.phoneOne &&
+    state.value.phoneTwo
+  ) {
     if (updateModal.value) {
-      update_floor(state.value);
+      update_client(state.value);
       handleClose();
       state.value = {};
     } else {
-      new_floor(state.value);
+      new_client(state.value);
       handleClose();
       state.value = {};
     }
@@ -57,7 +65,7 @@ const onClose = (isOpen) => {
 
 watch(updateModal, async () => {
   if (updateModal.value) {
-    const res = await get_floor(nowId.value);
+    const res = await get_client(nowId.value);
     if (res.status == 200) {
       state.value = res.data;
     }
@@ -68,19 +76,37 @@ watch(updateModal, async () => {
 <template>
   <Dialog v-model:open="modal" @update:open="onClose">
     <DialogTrigger as-child>
-      <Button class="bg-[#603cff] hover:bg-[#603cffbe]">qo'shish</Button>
+      <Button class="bg-[#603cff] hover:bg-[#603cffbe]">Mijoz</Button>
     </DialogTrigger>
     <DialogContent class="sm:max-w-[425px]">
       <DialogHeader>
-        <DialogTitle>Qavatni qo'shing</DialogTitle>
+        <DialogTitle>Mijozni qo'shing</DialogTitle>
         <DialogDescription class="pt-3 text-red-400">
           Ma'lumotlarni to'g'ri kiriting !
         </DialogDescription>
       </DialogHeader>
       <div class="grid gap-4 py-4">
         <div class="grid grid-cols-4 items-center gap-4">
-          <Label for="name" class="text-right"> Ismi </Label>
-          <Input class="col-span-3" v-model="state.floorName" />
+          <Label class="text-right"> Ismi </Label>
+          <Input class="col-span-3" v-model="state.fName" />
+        </div>
+      </div>
+      <div class="grid gap-4 py-4">
+        <div class="grid grid-cols-4 items-center gap-4">
+          <Label class="text-right"> Familyasi </Label>
+          <Input class="col-span-3" v-model="state.lName" />
+        </div>
+      </div>
+      <div class="grid gap-4 py-4">
+        <div class="grid grid-cols-4 items-center gap-4">
+          <Label class="text-right"> Telefon 1 </Label>
+          <Input class="col-span-3" v-model="state.phoneOne" />
+        </div>
+      </div>
+      <div class="grid gap-4 py-4">
+        <div class="grid grid-cols-4 items-center gap-4">
+          <Label class="text-right"> Telefon 2 </Label>
+          <Input class="col-span-3" v-model="state.phoneTwo" />
         </div>
       </div>
       <DialogFooter>

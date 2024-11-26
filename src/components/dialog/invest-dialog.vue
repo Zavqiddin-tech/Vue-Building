@@ -42,7 +42,6 @@ const add = () => {
   let newYear = String(calendar.value.date?.year);
   resDate = new Date(`${newYear}-${newMonth}-${newDay}`);
 
-
   if (state.value.name && state.value.amount) {
     if (updateModal.value) {
       if (resDate instanceof Date && !isNaN(resDate)) {
@@ -146,7 +145,7 @@ watch(updateModal, async () => {
       </div>
       <DialogFooter>
         <Button @click="add()" class="bg-[#603cff] hover:bg-[#603cffbe]">
-          Save changes
+          saqlash
         </Button>
       </DialogFooter>
     </DialogContent>
@@ -186,7 +185,7 @@ watch(updateModal, async () => {
       </div>
       <DialogFooter>
         <Button @click="add()" class="bg-[#603cff] hover:bg-[#603cffbe]">
-          Save changes
+          saqlash
         </Button>
       </DialogFooter>
     </DialogContent>

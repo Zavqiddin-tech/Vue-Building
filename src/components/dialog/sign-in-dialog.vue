@@ -1,7 +1,7 @@
 <script setup>
 import { ref, watch } from "vue";
 import { useAuthStore } from "@/stores/auth/auth";
-const {regis, get_user, update_admin} = useAuthStore()
+const { regis, get_user, update_admin } = useAuthStore();
 
 import { useModalStore } from "@/stores/modal";
 const { modal, updateModal, nowId } = storeToRefs(useModalStore());
@@ -34,9 +34,14 @@ import { storeToRefs } from "pinia";
 const { toast } = useToast();
 
 const add = () => {
-  if (state.value.fName && state.value.lName && state.value.userName && state.value.role) {
+  if (
+    state.value.fName &&
+    state.value.lName &&
+    state.value.userName &&
+    state.value.role
+  ) {
     if (updateModal.value) {
-      update_admin(state.value)
+      update_admin(state.value);
       handleClose();
     } else {
       regis(state.value);
@@ -131,7 +136,7 @@ watch(updateModal, async () => {
             </SelectContent>
           </Select>
         </div>
-				<div class="grid grid-cols-4 items-center gap-4">
+        <div class="grid grid-cols-4 items-center gap-4">
           <Label for="password" class="text-right"> parol </Label>
           <Input
             class="col-span-3"
@@ -143,7 +148,7 @@ watch(updateModal, async () => {
       </div>
       <DialogFooter>
         <Button @click="add()" class="bg-[#603cff] hover:bg-[#603cffbe]">
-          Save changes
+          saqlash
         </Button>
       </DialogFooter>
     </DialogContent>

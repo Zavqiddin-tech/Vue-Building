@@ -34,7 +34,6 @@ const add = () => {
   let newYear = String(calendar.value.date?.year);
   resDate = new Date(`${newYear}-${newMonth}-${newDay}`);
 
-
   if (state.value.kurs) {
     if (updateModal.value) {
       if (resDate instanceof Date && !isNaN(resDate)) {
@@ -92,7 +91,7 @@ watch(updateModal, async () => {
   <Dialog v-model:open="modal" @update:open="onClose">
     <DialogTrigger as-child>
       <Button class="bg-violet-500 hover:bg-[#603cffbe]">
-        Valyuta 
+        Valyuta
         <i class="fa-solid fa-plus pl-2 text-lg"></i>
       </Button>
     </DialogTrigger>
@@ -105,7 +104,7 @@ watch(updateModal, async () => {
       </DialogHeader>
       <di>
         <div class="mb-4">
-					<Label>Valyuta kursini kiriting</Label>
+          <Label>Valyuta kursini kiriting</Label>
           <Input
             class="mt-2"
             v-model="state.kurs"
@@ -124,7 +123,7 @@ watch(updateModal, async () => {
       </di>
       <DialogFooter>
         <Button @click="add()" class="bg-[#603cff] hover:bg-[#603cffbe]">
-          Save changes
+          saqlash
         </Button>
       </DialogFooter>
     </DialogContent>

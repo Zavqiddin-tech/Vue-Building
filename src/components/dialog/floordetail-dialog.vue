@@ -2,7 +2,7 @@
 import { ref, watch } from "vue";
 import { storeToRefs } from "pinia";
 import { useRoute } from "vue-router";
-const routeId = useRoute().params.id
+const routeId = useRoute().params.id;
 
 //store
 import { useModalStore } from "@/stores/modal";
@@ -35,7 +35,6 @@ const add = () => {
   let newMonth = String(calendar.value.date?.month).padStart(2, "0");
   let newYear = String(calendar.value.date?.year);
   resDate = new Date(`${newYear}-${newMonth}-${newDay}`);
-
 
   if (state.value.title && state.value.price) {
     if (updateModal.value) {
@@ -138,7 +137,7 @@ watch(updateModal, async () => {
       </di>
       <DialogFooter>
         <Button @click="add()" class="bg-[#603cff] hover:bg-[#603cffbe]">
-          Save changes
+          saqlash
         </Button>
       </DialogFooter>
     </DialogContent>

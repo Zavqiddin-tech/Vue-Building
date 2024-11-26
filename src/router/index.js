@@ -1,7 +1,28 @@
 import { createRouter, createWebHistory } from "vue-router";
-import { storeToRefs } from "pinia";
 import { useAuthStore } from "@/stores/auth/auth";
-import { useAdminsStore } from "@/stores/admins/admins";
+
+const salePages = [
+  {
+    path: "/sale/homes",
+    component: () => import("@/pages/sale/homes.vue"),
+    meta: { secure: true },
+  },
+  {
+    path: "/sale/clients",
+    component: () => import("@/pages/sale/clients.vue"),
+    meta: { secure: true },
+  },
+  {
+    path: "/sale/contracts",
+    component: () => import("@/pages/sale/contracts.vue"),
+    meta: { secure: true },
+  },
+  {
+    path: "/sale/contracts/:id",
+    component: () => import("@/pages/sale/contract-detail.vue"),
+    meta: { secure: true },
+  },
+]
 
 const router = createRouter({
   history: createWebHistory(),
@@ -15,6 +36,11 @@ const router = createRouter({
           path: "/dashboard",
           component: () => import("@/pages/dashboard.vue"),
           meta: { secure: true, position: true },
+        },
+        {
+          path: "/sale",
+          component: () => import("@/pages/sale.vue"),
+          meta: { secure: true },
         },
         {
           path: "/invest",
@@ -61,6 +87,7 @@ const router = createRouter({
           component: () => import("@/pages/sign-in.vue"),
           meta: { secure: true, position: true },
         },
+        ...salePages
       ],
     },
     {

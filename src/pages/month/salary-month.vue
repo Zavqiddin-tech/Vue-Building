@@ -17,7 +17,6 @@ import Button from "@/components/ui/button/Button.vue";
 const state = ref([]);
 const open = async () => {
   await get_month_salary().then((res) => {
-		console.log(res.data);
     state.value = [...res.data];
   });
 };

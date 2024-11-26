@@ -1,16 +1,18 @@
 <script setup>
-import { ref, watch, onMounted } from "vue";
+import { ref, onMounted, watch } from "vue";
 import { storeToRefs } from "pinia";
-import { useSalaryStore } from "@/stores/salary/salary";
-const { new_salary, update_salary, get_salary } = useSalaryStore();
 
-import { useWorkersStore } from "@/stores/workers/workers";
-const { workers } = storeToRefs(useWorkersStore());
-const { get_all_workers } = useWorkersStore();
-
+//store
 import { useModalStore } from "@/stores/modal";
 const { modal, updateModal, nowId } = storeToRefs(useModalStore());
 const { setModal, setUpdateModal, setNowId } = useModalStore();
+import { useHomeStore } from "@/stores/sale/home";
+import { useClientStore } from "@/stores/sale/client";
+import { useContractStore } from "@/stores/sale/contract";
+const { get_all_home_not_busy } = useHomeStore();
+const { get_all_client } = useClientStore();
+const { client } = storeToRefs(useClientStore());
+const {new_contract} = useContractStore()
 
 import { Button } from "@/components/ui/button";
 import {
@@ -31,44 +33,22 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Calendar } from "@/components/ui/calendar";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/toast/use-toast";
 const { toast } = useToast();
 
 const state = ref({});
-const calendar = ref({});
+const notBusyHomes = ref([]);
 const add = () => {
-  let resDate = null;
-  let newDay = String(calendar.value.date?.day).padStart(2, "0");
-  let newMonth = String(calendar.value.date?.month).padStart(2, "0");
-  let newYear = String(calendar.value.date?.year);
-  resDate = new Date(`${newYear}-${newMonth}-${newDay}`);
-
-  if (state.value.worker && state.value.amount) {
+  if (state.value.price && state.value.home && state.value.client) {
     if (updateModal.value) {
-      if (resDate instanceof Date && !isNaN(resDate)) {
-        update_salary({ ...state.value, selectDate: resDate });
-        handleClose();
-        state.value = {};
-      } else {
-        update_salary(state.value);
-        handleClose();
-        state.value = {};
-      }
+      alert('update mavjud emas !!!')
     } else {
-      if (resDate && resDate instanceof Date && !isNaN(resDate)) {
-        new_salary({ ...state.value, selectDate: resDate });
-        handleClose();
-        state.value = {};
-      } else {
-        toast({
-          title: "E'tibor bering",
-          description: "Sanani tanlang !",
-        });
-      }
+      console.log(state.value);
+      new_contract({ ...state.value });
+      handleClose();
+      state.value = {}
     }
   } else {
     toast({
@@ -92,15 +72,18 @@ const onClose = (isOpen) => {
 
 watch(updateModal, async () => {
   if (updateModal.value) {
-    const res = await get_salary(nowId.value);
+    const res = await get_exit(nowId.value);
     if (res.status == 200) {
       state.value = res.data;
     }
   }
 });
 
-onMounted(() => {
-  get_all_workers();
+onMounted(async () => {
+  await get_all_home_not_busy().then((res) => {
+    notBusyHomes.value = [...res.data];
+  });
+  await get_all_client()
 });
 </script>
 
@@ -111,24 +94,49 @@ onMounted(() => {
     </DialogTrigger>
     <DialogContent class="sm:max-w-[425px]">
       <DialogHeader>
-        <DialogTitle>
-          Maoshni berish
-          <span v-show="updateModal">yangilash</span></DialogTitle
-        >
+        <DialogTitle>Shartnoma qilish bo'limi</DialogTitle>
         <DialogDescription class="pt-3 text-red-400">
           Ma'lumotlarni to'g'ri kiriting !
         </DialogDescription>
       </DialogHeader>
       <div>
         <div class="mb-4">
-          <Select v-model="state.worker">
-            <SelectTrigger>
-              <SelectValue placeholder="Ishchini tanlang" />
+          <Input
+            class="mt-2"
+            v-model="state.price"
+            type="number"
+            id="price"
+            placeholder="narxini kiriting"
+          />
+        </div>
+        <div class="mb-4">
+          <Select v-model="state.home">
+            <SelectTrigger class="col-span-3">
+              <SelectValue placeholder="Uyni tanlang" />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent
+              v-if="Array.isArray(notBusyHomes) && notBusyHomes.length > 0"
+            >
               <SelectGroup>
-                <SelectLabel>Kim ?</SelectLabel>
-                <SelectItem v-for="item of workers" :value="item.id">
+                <SelectLabel>Bo'sh uylar ro'yxati</SelectLabel>
+                <SelectItem v-for="item of notBusyHomes" :value="item.id">
+                  {{ item.home }}
+                </SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        </div>
+        <div class="mb-4">
+          <Select v-model="state.client">
+            <SelectTrigger class="col-span-3">
+              <SelectValue placeholder="Mijozni tanlang" />
+            </SelectTrigger>
+            <SelectContent
+              v-if="Array.isArray(client) && client.length > 0"
+            >
+              <SelectGroup>
+                <SelectLabel>Mijozlar o'yxati</SelectLabel>
+                <SelectItem v-for="item of client" :value="item.id">
                   {{ item.fName }} {{ item.lName }}
                 </SelectItem>
               </SelectGroup>
@@ -136,22 +144,11 @@ onMounted(() => {
           </Select>
         </div>
         <div class="mb-4">
-          <Label for="pay" class="text-right"> To'landi </Label>
-          <Input class="mt-2" v-model="state.amount" type="number" id="pay" />
-        </div>
-        <div class="mb-4">
           <Textarea
             class="w-full mt-2"
             v-model="state.detail"
             id="detail"
-            placeholder="batafsil"
-          />
-        </div>
-        <div class="mb-4">
-          <Calendar
-            v-model="calendar.date"
-            :weekday-format="'short'"
-            class="rounded-md border"
+            placeholder="batafsil, majburiy emas"
           />
         </div>
       </div>
