@@ -17,13 +17,11 @@ export const useHomeStore = defineStore("home", () => {
         home.value = [...res.data];
       });
   };
-  
+
   const get_all_home_not_busy = async () => {
-   return await api
-      .getAxios({
-        url: "sale/home/all/not-busy",
-      })
-      
+    return await api.getAxios({
+      url: "sale/home/all/not-busy",
+    });
   };
 
   // Yangi ishchi qo'shish
@@ -53,7 +51,13 @@ export const useHomeStore = defineStore("home", () => {
         data,
       })
       .then((res) => {
-        home.value = [...res.data];
+        home.value = home.value.map((item) => {
+          if (item.id == res.data.id) {
+            return res.data;
+          } else {
+            return item;
+          }
+        });
       });
   };
 

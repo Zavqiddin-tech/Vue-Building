@@ -14,8 +14,13 @@ import { useContractStore } from "@/stores/sale/contract";
 const { contract } = storeToRefs(useContractStore());
 const { get_all_contract } = useContractStore();
 
+const total = (a, b) => {
+  return a - b;
+};
+
 onMounted(async () => {
   await get_all_contract();
+  console.log(contract.value);
 });
 </script>
 
@@ -30,11 +35,11 @@ onMounted(async () => {
         class="min-w-80 overflow-hidden rounded-xl border shadow-lg"
       >
         <img
-          class="h-44 w-full m-auto object-cover shadow-lg"
-          src="@/assets/contract.jpg"
+          class="w-44 h-44 mt-3 rounded-full m-auto object-cover shadow-lg"
+          src="@/assets/contract2.jpg"
           alt=""
         />
-        <div class="p-5">
+        <div class="p-3">
           <div class="text-xl font-semibold">{{ item.home.home }}</div>
           <div class="capitalize">
             Mijoz: {{ item.client.fName }} {{ item.client.lName }}
@@ -48,12 +53,17 @@ onMounted(async () => {
             <span class="px-3 rounded-2xl bg-green-400">To'landi</span>:
             {{ item.paid.toLocaleString() }} so'm
           </div>
+          <div>
+            <span class="px-3 rounded-2xl text-white bg-pink-400"
+              >Qarzdorlik</span
+            >: {{ total(item.price, item.paid).toLocaleString() }} so'm
+          </div>
           <div class="mt-5">
             <Button class="w-full" @click="router.push(`contracts/${item.id}`)"
               >Batafsil <i class="fa-regular fa-circle-check ml-2"></i
             ></Button>
           </div>
-          <div class="mt-3 pt-1 flex  justify-between border-t border-slate-300">
+          <div class="mt-3 pt-1 flex justify-between border-t border-slate-300">
             <div>
               muallif:
               <span class="text-sky-500 underline">{{
@@ -62,13 +72,11 @@ onMounted(async () => {
             </div>
             <div>
               <Popover>
-              <PopoverTrigger
-                class="text-sky-500 underline"
-              >
-                batafsil</PopoverTrigger
-              >
-              <PopoverContent> {{ item.detail }} </PopoverContent>
-            </Popover>
+                <PopoverTrigger class="text-sky-500 underline">
+                  batafsil</PopoverTrigger
+                >
+                <PopoverContent> {{ item.detail }} </PopoverContent>
+              </Popover>
             </div>
           </div>
         </div>

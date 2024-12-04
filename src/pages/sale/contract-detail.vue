@@ -3,6 +3,7 @@ import { onMounted } from "vue";
 import { storeToRefs } from "pinia";
 import { useRoute } from "vue-router";
 const routeId = useRoute().params.id;
+import { convertDate } from "@/func/date";
 import monitoringDialog from "@/components/dialog/sale/monitoring-dialog.vue";
 import monitoringTable from "@/components/sale/monitoringTable.vue";
 
@@ -21,6 +22,10 @@ onMounted(async () => {
 
 <template>
   <div v-if="Object.keys(oneContract).length">
+    <div class="pb-3">
+     
+      <div><i class="fa-regular fa-clock"></i> {{ convertDate(oneContract.createAt) }}</div>
+    </div>
     <div class="-ml-3 -mr-3 flex flex-wrap">
       <div class="w-full sm:w-6/12 md:w-4/12 mb-6 px-3">
         <div class="px-3 py-4 flex items-center gap-4 bg-white rounded-xl">

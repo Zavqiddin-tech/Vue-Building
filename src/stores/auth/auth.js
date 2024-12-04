@@ -35,7 +35,7 @@ export const useAuthStore = defineStore("auth", () => {
           tokenStore.setToken(res.data.accessToken);
           setAdminRole(res.data.role);
           if (res.data.role == "manager") {
-            router.push("/podval");
+            router.push("/sale");
           }
           if (res.data.role == "admin" || res.data.role == 'director') {
             router.push("/dashboard");
@@ -64,7 +64,7 @@ export const useAuthStore = defineStore("auth", () => {
       .then((res) => {
         setAdminRole(res.data.role);
         if (res.data.role == 'manager') {
-          router.push('/podval')
+          router.push('/sale')
         } else {
           console.log('success');
         }
