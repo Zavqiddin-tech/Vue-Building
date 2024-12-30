@@ -96,7 +96,7 @@ watch(updateModal, async () => {
     </DialogTrigger>
     <DialogContent class="sm:max-w-[425px]">
       <DialogHeader>
-        <DialogTitle>Har bir qavatning rasxodlari {{ routeId }}</DialogTitle>
+        <DialogTitle>Har bir qavatning rasxodlari</DialogTitle>
         <DialogDescription class="pt-3 text-red-400">
           Ma'lumotlarni to'g'ri kiriting !
         </DialogDescription>

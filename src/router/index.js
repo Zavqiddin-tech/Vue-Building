@@ -37,11 +37,11 @@ const router = createRouter({
           component: () => import("@/pages/dashboard.vue"),
           meta: { secure: true, position: true },
         },
-        {
+        /* {
           path: "/sale",
           component: () => import("@/pages/sale.vue"),
           meta: { secure: true },
-        },
+        }, */
         {
           path: "/invest",
           component: () => import("@/pages/invest.vue"),

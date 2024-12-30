@@ -45,7 +45,6 @@ const add = () => {
     if (updateModal.value) {
       alert('update mavjud emas !!!')
     } else {
-      console.log(state.value);
       new_contract({ ...state.value });
       handleClose();
       state.value = {}

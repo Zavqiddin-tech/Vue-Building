@@ -79,7 +79,7 @@ watch(updateModal, async () => {
       </DialogHeader>
       <div class="grid gap-4 py-4">
         <div class="grid grid-cols-4 items-center gap-4">
-          <Label for="name" class="text-right"> Ismi </Label>
+          <Label for="name" class="text-right"> Qavat nomi </Label>
           <Input class="col-span-3" v-model="state.floorName" />
         </div>
       </div>

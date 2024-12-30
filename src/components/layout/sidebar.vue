@@ -14,12 +14,12 @@ const routes = [
     path: "/dashboard",
     icon: "fa-solid fa-house",
   },
-  {
+  /* {
     name: "Sotuv bo'limi",
     position: true,
     path: "/sale",
     icon: "fa-solid fa-tags",
-  },
+  }, */
   {
     name: "Sarmoya",
     position: true,
@@ -66,7 +66,7 @@ const routes = [
   // Qo'shimcha marshrutlar qo'shishingiz mumkin
 ];
 const managerRoutes = [
-  { name: "Sotuv bo'limi", path: "/sale", icon: "fa-solid fa-tags" },
+  /* { name: "Sotuv bo'limi", path: "/sale", icon: "fa-solid fa-tags" }, */
   { name: "Qavat", path: "/floor", icon: "fa-solid fa-arrow-right-to-city" },
   { name: "Podval", path: "/podval", icon: "fa-solid fa-store" },
 ];

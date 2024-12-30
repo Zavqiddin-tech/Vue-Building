@@ -21,7 +21,6 @@ export const useAuthStore = defineStore("auth", () => {
         setAdmins(res.data);
       })
       .catch((err) => {
-        console.log(err);
       });
   };
   const login = async (data) => {
@@ -35,7 +34,7 @@ export const useAuthStore = defineStore("auth", () => {
           tokenStore.setToken(res.data.accessToken);
           setAdminRole(res.data.role);
           if (res.data.role == "manager") {
-            router.push("/sale");
+            router.push("/floor");
           }
           if (res.data.role == "admin" || res.data.role == 'director') {
             router.push("/dashboard");
@@ -64,9 +63,8 @@ export const useAuthStore = defineStore("auth", () => {
       .then((res) => {
         setAdminRole(res.data.role);
         if (res.data.role == 'manager') {
-          router.push('/sale')
+          router.push('/floor')
         } else {
-          console.log('success');
         }
       });
   };

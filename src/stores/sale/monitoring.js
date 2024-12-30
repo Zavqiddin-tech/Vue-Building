@@ -17,7 +17,6 @@ export const useMonitoringStore = defineStore("monitoring", () => {
         url: `sale/monitoring/all/${routeId}`,
       })
       .then((res) => {
-        console.log(res.data);
         monitoring.value = [...res.data];
       });
   };

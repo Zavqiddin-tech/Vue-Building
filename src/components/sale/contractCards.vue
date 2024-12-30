@@ -20,7 +20,6 @@ const total = (a, b) => {
 
 onMounted(async () => {
   await get_all_contract();
-  console.log(contract.value);
 });
 </script>
 
