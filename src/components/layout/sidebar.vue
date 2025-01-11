@@ -14,12 +14,12 @@ const routes = [
     path: "/dashboard",
     icon: "fa-solid fa-house",
   },
-  /* {
+  {
     name: "Sotuv bo'limi",
     position: true,
     path: "/sale",
     icon: "fa-solid fa-tags",
-  }, */
+  },
   {
     name: "Sarmoya",
     position: true,
@@ -66,7 +66,7 @@ const routes = [
   // Qo'shimcha marshrutlar qo'shishingiz mumkin
 ];
 const managerRoutes = [
-  /* { name: "Sotuv bo'limi", path: "/sale", icon: "fa-solid fa-tags" }, */
+  { name: "Sotuv bo'limi", path: "/sale", icon: "fa-solid fa-tags" },
   { name: "Qavat", path: "/floor", icon: "fa-solid fa-arrow-right-to-city" },
   { name: "Podval", path: "/podval", icon: "fa-solid fa-store" },
 ];
@@ -87,7 +87,7 @@ onMounted(async () => {
 <template>
   <div class="sidebar pt-8 h-full rounded-xl bg-white">
     <div class="pb-5 text-2xl text-center font-extrabold border-b">
-      <i class="fa-solid fa-hashtag"></i> ZAVQI UI
+      <i class="fa-solid fa-hashtag"></i> LIFE TOWN
     </div>
     <ul
       v-if="adminRole == 'admin' || adminRole == 'director'"

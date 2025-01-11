@@ -5,6 +5,7 @@ import { useApiStore } from "@/stores/api/api";
 export const useContractStore = defineStore("contract", () => {
   const contract = ref([]);
   const oneContract = ref({})
+  const contractResult = ref({})
 
   const api = useApiStore();
 
@@ -16,6 +17,17 @@ export const useContractStore = defineStore("contract", () => {
       })
       .then((res) => {
         contract.value = [...res.data];
+        contractResult.value.count = contract.value.length
+        let allPrice = 0
+        let allPaid = 0
+        for (let i = 0; i < contract.value.length; i++) {
+         allPrice += contract.value[i].price
+         allPaid += contract.value[i].paid
+        }
+        contractResult.value.price = allPrice
+        contractResult.value.paid = allPaid
+        contractResult.value.qarz = allPrice - allPaid
+
       });
   };
 
@@ -66,6 +78,7 @@ export const useContractStore = defineStore("contract", () => {
   return {
     contract,
     oneContract,
+    contractResult,
     get_all_contract,
     get_contract,
     new_contract,

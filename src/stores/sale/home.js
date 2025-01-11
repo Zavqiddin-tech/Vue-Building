@@ -4,6 +4,7 @@ import { useApiStore } from "@/stores/api/api";
 
 export const useHomeStore = defineStore("home", () => {
   const home = ref([]);
+  const homeResult = ref({});
 
   const api = useApiStore();
 
@@ -15,6 +16,19 @@ export const useHomeStore = defineStore("home", () => {
       })
       .then((res) => {
         home.value = [...res.data];
+        homeResult.value.countHome = home.value.length
+        let openHome = 0
+        let busyHome = 0
+        for (let i = 0; i < home.value.length; i++) {
+          if (home.value[i].isBusy == false) {
+            openHome += 1 
+          }
+          if (home.value[i].isBusy == true) {
+            busyHome += 1 
+          }
+        }
+        homeResult.value.openHome = openHome
+        homeResult.value.busyHome = busyHome
       });
   };
 
@@ -74,6 +88,7 @@ export const useHomeStore = defineStore("home", () => {
 
   return {
     home,
+    homeResult,
     get_all_home,
     get_all_home_not_busy,
     get_home,

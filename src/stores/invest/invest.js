@@ -5,6 +5,9 @@ import { useApiStore } from "@/stores/api/api";
 export const useInvestStore = defineStore("invest", () => {
   const invest = ref([]);
   const investResult = ref({});
+  const dilmurodResult = ref({})
+  const rustamResult = ref({})
+
 
   const api = useApiStore();
 
@@ -16,6 +19,24 @@ export const useInvestStore = defineStore("invest", () => {
       })
       .then((res) => {
         invest.value = [...res.data];
+        let dA = 0
+        let dC = 0
+        let rA = 0
+        let rC = 0
+        for(let i = 0; i < invest.value.length; i++) {
+          if (invest.value[i].name == 'dilmurod') {
+            dA += invest.value[i].amount
+            dC += Number(invest.value[i].convert)
+          } 
+          if (invest.value[i].name == 'rustam aka') {
+            rA += invest.value[i].amount
+            rC += Number(invest.value[i].convert)
+          } 
+        }
+        dilmurodResult.value.amount = dA
+        dilmurodResult.value.convert = dC
+        rustamResult.value.amount = rA
+        rustamResult.value.convert = rC
       });
   };
 
@@ -75,6 +96,8 @@ export const useInvestStore = defineStore("invest", () => {
   return {
     invest,
     investResult,
+    dilmurodResult,
+    rustamResult,
     get_all_invest,
     get_invest_result,
     get_invest,
