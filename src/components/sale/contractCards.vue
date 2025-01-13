@@ -13,6 +13,14 @@ import {
 import { useContractStore } from "@/stores/sale/contract";
 const { contract } = storeToRefs(useContractStore());
 const { get_all_contract } = useContractStore();
+import { useModalStore } from "@/stores/modal";
+const { setModal, setUpdateModal, setNowId } = useModalStore();
+
+const edit = async (id) => {
+  setModal(true);
+  setUpdateModal(true);
+  setNowId(id);
+};
 
 const total = (a, b) => {
   return a - b;
@@ -31,7 +39,7 @@ onMounted(async () => {
     >
       <div
         v-for="item of contract"
-        class="min-w-80 overflow-hidden rounded-xl border shadow-lg"
+        class="min-w-80 relative overflow-hidden rounded-xl border shadow-lg"
       >
         <img
           class="w-44 h-44 mt-3 rounded-full m-auto object-cover shadow-lg"
@@ -77,6 +85,29 @@ onMounted(async () => {
                 <PopoverContent> {{ item.detail }} </PopoverContent>
               </Popover>
             </div>
+            <!-- <div class="absolute top-5 right-5">
+              <Popover>
+                <PopoverTrigger>
+                  <div class="pl-5 hover:text-blue-500">
+                    <i class="fa-solid fa-ellipsis-vertical text-2xl"></i>
+                  </div>
+                </PopoverTrigger>
+                <PopoverContent class="w-36 bg-white/0">
+                  <div
+                    @click="edit(item.id)"
+                    class="p-1 rounded cursor-pointer hover:bg-black/30"
+                  >
+                    <i class="fa-solid fa-pen pr-2"></i> edit
+                  </div>
+                  <div
+                    @click="del(item.id)"
+                    class="p-1 rounded cursor-pointer hover:bg-black/30"
+                  >
+                    <i class="fa-solid fa-trash pr-2"></i> delete
+                  </div>
+                </PopoverContent>
+              </Popover>
+            </div> -->
           </div>
         </div>
       </div>

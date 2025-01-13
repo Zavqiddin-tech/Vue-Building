@@ -9,7 +9,7 @@ export const useContractStore = defineStore("contract", () => {
 
   const api = useApiStore();
 
-  // Barcha ishchilarni olish
+  // Barcha olish
   const get_all_contract = async () => {
     await api
       .getAxios({
@@ -31,7 +31,7 @@ export const useContractStore = defineStore("contract", () => {
       });
   };
 
-  // Yangi ishchi qo'shish
+  // Yangi qo'shish
   const new_contract = async (data) => {
     await api
       .postAxios({
@@ -60,7 +60,13 @@ export const useContractStore = defineStore("contract", () => {
         data,
       })
       .then((res) => {
-        contract.value = [...res.data];
+        contract.value = contract.value.map((item) => {
+          if (item.id == res.data.id) {
+            return res.data;
+          } else {
+            return item;
+          }
+        });
       });
   };
 

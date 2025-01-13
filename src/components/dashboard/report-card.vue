@@ -11,6 +11,7 @@ import barChart from "../chart ui/bar-chart.vue";
 import lineChart from "../chart ui/line-chart.vue";
 
 import { useInvestStore } from "@/stores/invest/invest";
+import { useContractStore } from "@/stores/sale/contract";
 import { useSalaryStore } from "@/stores/salary/salary";
 import { usePodvalStore } from "@/stores/podval/podval";
 import { useKatlavanStore } from "@/stores/katlavan/katlavan";
@@ -20,6 +21,7 @@ import { useEachStore } from "@/stores/floor/each";
 import { useDollarStore } from "@/stores/dollar/dollar";
 
 const { investResult } = storeToRefs(useInvestStore());
+const { contractResult } = storeToRefs(useContractStore());
 const { salaryResult } = storeToRefs(useSalaryStore());
 const { podvalResult } = storeToRefs(usePodvalStore());
 const { katlavanResult } = storeToRefs(useKatlavanStore());
@@ -30,6 +32,7 @@ const { dollar } = storeToRefs(useDollarStore());
 
 onMounted(() => {
   useInvestStore().get_invest_result();
+  useContractStore().get_all_contract();
   useSalaryStore().get_salary_result();
   usePodvalStore().get_podval_result();
   useKatlavanStore().get_katlavan_result();
@@ -51,7 +54,7 @@ onMounted(() => {
             <i class="fa-solid fa-dollar-sign pr-1"></i
             >{{ investResult.total.toLocaleString() }}
           </div>
-          <div v-if="investResult.convert" class="pt-2 text-xl ">
+          <div v-if="investResult.convert" class="pt-2 text-xl">
             {{ investResult.convert.toLocaleString() }}
             <span class="text-base"> sum</span>
           </div>
@@ -87,9 +90,51 @@ onMounted(() => {
       </div>
     </div>
     <!-- Qavatlar -->
-    <div class="w-full mb-6 px-3">
-      <div class="px-3 py-4 gap-4 bg-white rounded-xl">
+    <div class="w-6/12 h-full mb-6 px-3 ">
+      <div class="px-3 h-full py-4 gap-4 bg-white rounded-xl">
         <floorTabs :result="eachResult" />
+      </div>
+    </div>
+    <!-- Shartnoma -->
+    <div class="w-6/12 mb-6 px-3">
+      <div
+        v-if="contractResult.count"
+        class="px-3 py-4 flex items-center gap-4 bg-white rounded-xl"
+      >
+        <div
+          class="icon w-[45px] h-[45px] flex justify-center items-center rounded-full bg-[#e9edf1] text-[25px] text-[#603cff]"
+        >
+          <i class="fa-solid fa-address-card"></i>
+        </div>
+        <div>
+          <div class="text-xl font-medium">
+            Shartnoma | {{ contractResult.count }} ta
+          </div>
+
+          <div class="pt-2 text-lg">
+            Umumiy:
+            <span class="text-2xl font-medium">{{
+              contractResult.price.toLocaleString()
+            }}</span
+            ><span class="text-base font-normal"> uzs</span>
+          </div>
+          <div class="text-lg">
+            <i class="fa-solid fa-circle-check text-xl text-green-500"></i>
+            to'landi:
+            <span class="text-xl font-medium text-green-500">{{
+              contractResult.paid.toLocaleString()
+            }}</span
+            ><span class="text-base font-normal"> uzs</span>
+          </div>
+          <div class="text-lg">
+            <i class="fa-solid fa-circle-minus text-pink-500 text-xl"></i>
+            qarzdorlik:
+            <span class="text-xl font-medium text-pink-500">{{
+              contractResult.qarz.toLocaleString()
+            }}</span
+            ><span class="text-base font-normal"> uzs</span>
+          </div>
+        </div>
       </div>
     </div>
     <!-- Oylik maosh -->
@@ -124,7 +169,10 @@ onMounted(() => {
               {{ katlavanResult.total.toLocaleString() }}
               <span class="text-base font-normal"> sum</span>
             </div>
-            <div v-if="katlavanResult.convert" class="pt-2 text-xl text-green-500">
+            <div
+              v-if="katlavanResult.convert"
+              class="pt-2 text-xl text-green-500"
+            >
               <i class="fa-solid fa-dollar-sign pr-1"></i>
               {{ katlavanResult.convert.toLocaleString() }}
             </div>
@@ -147,7 +195,10 @@ onMounted(() => {
               {{ podvalResult.total.toLocaleString() }}
               <span class="text-base font-normal"> sum</span>
             </div>
-            <div v-if="podvalResult.convert" class="pt-2 text-xl text-green-500">
+            <div
+              v-if="podvalResult.convert"
+              class="pt-2 text-xl text-green-500"
+            >
               <i class="fa-solid fa-dollar-sign pr-1"></i>
               {{ podvalResult.convert.toLocaleString() }}
             </div>

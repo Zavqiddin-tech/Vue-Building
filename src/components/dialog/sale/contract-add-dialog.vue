@@ -12,7 +12,8 @@ import { useContractStore } from "@/stores/sale/contract";
 const { get_all_home_not_busy } = useHomeStore();
 const { get_all_client } = useClientStore();
 const { client } = storeToRefs(useClientStore());
-const {new_contract} = useContractStore()
+const {oneContract} = storeToRefs(useContractStore())
+const {new_contract, get_contract, update_contract} = useContractStore()
 
 import { Button } from "@/components/ui/button";
 import {
@@ -43,7 +44,7 @@ const notBusyHomes = ref([]);
 const add = () => {
   if (state.value.price && state.value.home && state.value.client) {
     if (updateModal.value) {
-      alert('update mavjud emas !!!')
+      update_contract({...state.value})
     } else {
       new_contract({ ...state.value });
       handleClose();
@@ -61,6 +62,7 @@ const handleClose = () => {
   setModal(false);
   setUpdateModal(false);
   setNowId("");
+  state.value = {}
 };
 
 const onClose = (isOpen) => {
@@ -71,10 +73,8 @@ const onClose = (isOpen) => {
 
 watch(updateModal, async () => {
   if (updateModal.value) {
-    const res = await get_exit(nowId.value);
-    if (res.status == 200) {
-      state.value = res.data;
-    }
+    const res = await get_contract(nowId.value);
+      state.value = oneContract.value;
   }
 });
 
@@ -109,7 +109,7 @@ onMounted(async () => {
           />
         </div>
         <div class="mb-4">
-          <Select v-model="state.home">
+          <Select v-if="!updateModal" v-model="state.home">
             <SelectTrigger class="col-span-3">
               <SelectValue placeholder="Uyni tanlang" />
             </SelectTrigger>
@@ -124,9 +124,12 @@ onMounted(async () => {
               </SelectGroup>
             </SelectContent>
           </Select>
+          <div v-else>
+            <div v-if="state.home">{{ state.home.home }}</div>
+          </div>
         </div>
         <div class="mb-4">
-          <Select v-model="state.client">
+          <Select v-if="!updateModal" v-model="state.client">
             <SelectTrigger class="col-span-3">
               <SelectValue placeholder="Mijozni tanlang" />
             </SelectTrigger>
@@ -141,6 +144,9 @@ onMounted(async () => {
               </SelectGroup>
             </SelectContent>
           </Select>
+          <div v-else>
+            <div v-if="state.client">{{ state.client.fName }} {{ state.client.lName }}</div>
+          </div>
         </div>
         <div class="mb-4">
           <Textarea
