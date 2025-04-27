@@ -6,7 +6,7 @@ import { convertDate } from "@/func/date";
 // store
 import { useClientStore } from "@/stores/sale/client";
 const { client } = storeToRefs(useClientStore());
-const { get_all_client } = useClientStore();
+const { get_all_client, delete_client } = useClientStore();
 import { useModalStore } from "@/stores/modal";
 const { setModal, setUpdateModal, setNowId } = useModalStore();
 
@@ -34,7 +34,7 @@ const edit = async (id) => {
 
 const del = (id) => {
   if (confirm("O'chirasizmi")) {
-    delete_exit(id);
+    delete_client(id);
   }
 };
 

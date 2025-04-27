@@ -82,7 +82,7 @@ export const useHomeStore = defineStore("home", () => {
         url: `sale/home/delete/${id}`,
       })
       .then((res) => {
-        home.value = [...res.data];
+        
       });
   };
 

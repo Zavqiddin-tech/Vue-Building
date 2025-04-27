@@ -12,7 +12,7 @@ import {
 
 import { useContractStore } from "@/stores/sale/contract";
 const { contract } = storeToRefs(useContractStore());
-const { get_all_contract } = useContractStore();
+const { get_all_contract, delete_contract } = useContractStore();
 import { useModalStore } from "@/stores/modal";
 const { setModal, setUpdateModal, setNowId } = useModalStore();
 
@@ -21,6 +21,12 @@ const edit = async (id) => {
   setUpdateModal(true);
   setNowId(id);
 };
+
+const del = async (id) => {
+  if (confirm("o'chirasizmi")) {
+    delete_contract(id)
+  }
+}
 
 const total = (a, b) => {
   return a - b;
@@ -85,7 +91,7 @@ onMounted(async () => {
                 <PopoverContent> {{ item.detail }} </PopoverContent>
               </Popover>
             </div>
-            <!-- <div class="absolute top-5 right-5">
+            <div class="absolute top-5 right-5">
               <Popover>
                 <PopoverTrigger>
                   <div class="pl-5 hover:text-blue-500">
@@ -107,7 +113,7 @@ onMounted(async () => {
                   </div>
                 </PopoverContent>
               </Popover>
-            </div> -->
+            </div>
           </div>
         </div>
       </div>

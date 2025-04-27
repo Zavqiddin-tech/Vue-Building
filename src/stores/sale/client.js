@@ -56,7 +56,7 @@ export const useClientStore = defineStore("client", () => {
         url: `sale/client/delete/${id}`,
       })
       .then((res) => {
-        client.value = [...res.data];
+        
       });
   };
 

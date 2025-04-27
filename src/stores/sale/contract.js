@@ -77,7 +77,7 @@ export const useContractStore = defineStore("contract", () => {
         url: `sale/contract/delete/${id}`,
       })
       .then((res) => {
-        contract.value = [...res.data];
+        
       });
   };
 

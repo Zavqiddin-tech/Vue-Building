@@ -11,7 +11,7 @@ import {
 
 import { useHomeStore } from "@/stores/sale/home";
 const { home } = storeToRefs(useHomeStore());
-const { get_all_home } = useHomeStore();
+const { get_all_home, delete_home } = useHomeStore();
 import { useModalStore } from "@/stores/modal";
 const { setModal, setUpdateModal, setNowId } = useModalStore();
 
@@ -20,6 +20,11 @@ const edit = async (id) => {
   setUpdateModal(true);
   setNowId(id);
 };
+const del = async (id) => {
+  if (confirm("o'chirasizmi")) {
+    delete_home(id)
+  }
+}
 
 onMounted(async () => {
   await get_all_home();
